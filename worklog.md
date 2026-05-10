@@ -104,3 +104,32 @@ Stage Summary:
 - Links to wa.me with pre-filled message in user's language
 - Pulse animation + notification badge draw attention
 - Professional chat panel design matching WhatsApp's visual language
+
+---
+Task ID: 5
+Agent: Main Agent
+Task: Redesign header: centered logo with nav underneath, bigger text
+
+Work Log:
+- Restructured Header from horizontal layout (logo left, nav center, language right) to centered layout
+- New layout: top row has logo centered with language switcher on left and hamburger on right; bottom row has navigation links centered under the logo
+- Added logo.svg Image component next to "TRADING HOUSE" text (32x32 desktop, 28x28 mobile overlay)
+- Increased text sizes across the header:
+  - Logo: text-lg → text-xl
+  - Desktop nav links: text-sm → text-base (px-1 → px-2)
+  - Desktop dropdown triggers: text-sm → text-base, chevron icons w-3.5 → w-4
+  - Language switcher: text-sm → text-base
+  - Mobile nav items: text-lg → text-xl
+  - Mobile sub-items: text-sm → text-base
+  - Mobile language buttons: text-sm → text-base
+  - Mobile globe icon: w-4 → w-5
+- Language switcher moved to left side (desktop) to balance the centered logo
+- Nav row uses justify-center with gap-2 for even spacing
+- Build verified: all 38 routes compile successfully
+
+Stage Summary:
+- Header now has centered logo with SVG icon + "TRADING HOUSE" text
+- Navigation menu sits directly below the logo, centered
+- All header text is one size larger than before for better readability
+- Language switcher balances left side, hamburger right side
+- Mobile overlay also updated with larger text and logo icon

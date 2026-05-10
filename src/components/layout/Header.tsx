@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { usePathname, useRouter, Link } from '@/i18n/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
+import Image from 'next/image';
 import {
   Menu,
   X,
@@ -96,7 +97,7 @@ function NavLink({
   return (
     <Link
       href={href}
-      className={`relative px-1 py-2 text-sm font-medium transition-colors duration-200 hover:text-accent ${
+      className={`relative px-2 py-2 text-base font-medium transition-colors duration-200 hover:text-accent ${
         active ? 'text-accent' : 'text-steel'
       }`}
     >
@@ -183,91 +184,67 @@ export default function Header() {
     <>
       {/* ─── Sticky Header ─────────────────────────────────────────── */}
       <header className="sticky top-0 z-50 w-full border-b border-mist bg-canvas/85 backdrop-blur-md supports-[backdrop-filter]:bg-canvas/75">
-        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-          {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 shrink-0">
-            <span className="text-lg font-bold tracking-wider text-ink">
+        {/* Top row: Logo centered, language & mobile on sides */}
+        <div className="mx-auto flex items-center justify-between px-4 sm:px-6 lg:px-8 pt-3 pb-1 max-w-7xl">
+          {/* Left spacer — balances language switcher */}
+          <div className="flex-1 flex items-center">
+            {/* Language Switcher (desktop) */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <button className="hidden lg:flex items-center gap-1.5 rounded-md px-2.5 py-1.5 text-base font-medium text-steel transition-colors hover:text-accent hover:bg-accent-light outline-none">
+                  <Globe className="w-4 h-4" />
+                  <span>
+                    {currentLocale.flag} {currentLocale.label}
+                  </span>
+                  <ChevronDown className="w-3 h-3 opacity-60" />
+                </button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent
+                align="start"
+                className="w-36 p-1.5 bg-surface border-mist shadow-lg"
+              >
+                {locales.map((locale) => (
+                  <DropdownMenuItem
+                    key={locale.code}
+                    className={`flex items-center gap-2.5 px-3 py-2 rounded-md text-sm cursor-pointer transition-colors ${
+                      currentLocale.code === locale.code
+                        ? 'bg-accent-light text-accent font-semibold'
+                        : 'text-ink hover:bg-accent-light hover:text-accent'
+                    }`}
+                    onSelect={() => {
+                      router.replace(pathname, { locale: locale.code });
+                    }}
+                  >
+                    <span className="text-base">{locale.flag}</span>
+                    <span>{locale.label}</span>
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
+
+          {/* Center: Logo */}
+          <Link href="/" className="flex items-center gap-2.5 shrink-0">
+            <Image
+              src="/logo.svg"
+              alt="Trading House Logo"
+              width={32}
+              height={32}
+              className="w-8 h-8"
+            />
+            <span className="text-xl font-bold tracking-wider text-ink">
               TRADING HOUSE
             </span>
           </Link>
 
-          {/* ─── Desktop Navigation ───────────────────────────────── */}
-          <nav className="hidden lg:flex items-center gap-1">
-            <NavLink href="/" label={t('nav.home')} active={isActive('/')} />
-
-            {/* Produkte dropdown */}
+          {/* Right: Language (mobile) + Hamburger */}
+          <div className="flex-1 flex items-center justify-end gap-2">
+            {/* Language flag only on mobile/tablet */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <button
-                  className={`relative flex items-center gap-1 px-1 py-2 text-sm font-medium transition-colors duration-200 hover:text-accent outline-none ${
-                    isParentActive('/produkte') ? 'text-accent' : 'text-steel'
-                  }`}
-                >
-                  {t('nav.products')}
-                  <ChevronDown className="w-3.5 h-3.5 opacity-60" />
-                  {isParentActive('/produkte') && (
-                    <motion.span
-                      layoutId="activeNav"
-                      className="absolute inset-x-0 -bottom-px h-0.5 bg-accent"
-                      transition={{ type: 'spring', stiffness: 350, damping: 30 }}
-                    />
-                  )}
-                </button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent
-                align="start"
-                className="w-64 p-2 bg-surface border-mist shadow-lg"
-              >
-                {productItems.map((item) => (
-                  <ProductDropdownItem key={item.key} item={item} />
-                ))}
-              </DropdownMenuContent>
-            </DropdownMenu>
-
-            {/* Leistungen dropdown */}
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <button
-                  className={`relative flex items-center gap-1 px-1 py-2 text-sm font-medium transition-colors duration-200 hover:text-accent outline-none ${
-                    isParentActive('/leistungen') ? 'text-accent' : 'text-steel'
-                  }`}
-                >
-                  {t('nav.services')}
-                  <ChevronDown className="w-3.5 h-3.5 opacity-60" />
-                  {isParentActive('/leistungen') && (
-                    <motion.span
-                      layoutId="activeNav"
-                      className="absolute inset-x-0 -bottom-px h-0.5 bg-accent"
-                      transition={{ type: 'spring', stiffness: 350, damping: 30 }}
-                    />
-                  )}
-                </button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent
-                align="start"
-                className="w-56 p-2 bg-surface border-mist shadow-lg"
-              >
-                {serviceItems.map((item) => (
-                  <ServiceDropdownItem key={item.key} item={item} />
-                ))}
-              </DropdownMenuContent>
-            </DropdownMenu>
-
-            <NavLink href="/ueber-mich" label={t('nav.about')} active={isActive('/ueber-mich')} />
-            <NavLink href="/kontakt" label={t('nav.contact')} active={isActive('/kontakt')} />
-          </nav>
-
-          {/* ─── Right side: Language + Mobile Toggle ──────────────── */}
-          <div className="flex items-center gap-2">
-            {/* Language Switcher */}
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <button className="flex items-center gap-1.5 rounded-md px-2.5 py-1.5 text-sm font-medium text-steel transition-colors hover:text-accent hover:bg-accent-light outline-none">
+                <button className="lg:hidden flex items-center gap-1 rounded-md px-2 py-1.5 text-base font-medium text-steel transition-colors hover:text-accent hover:bg-accent-light outline-none">
                   <Globe className="w-4 h-4" />
-                  <span className="hidden sm:inline">
-                    {currentLocale.flag} {currentLocale.label}
-                  </span>
-                  <span className="sm:hidden">{currentLocale.flag}</span>
+                  <span>{currentLocale.flag}</span>
                   <ChevronDown className="w-3 h-3 opacity-60" />
                 </button>
               </DropdownMenuTrigger>
@@ -304,6 +281,74 @@ export default function Header() {
             </button>
           </div>
         </div>
+
+        {/* Bottom row: Navigation centered under logo */}
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <nav className="hidden lg:flex items-center justify-center gap-2 pb-3">
+            <NavLink href="/" label={t('nav.home')} active={isActive('/')} />
+
+            {/* Produkte dropdown */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <button
+                  className={`relative flex items-center gap-1 px-2 py-2 text-base font-medium transition-colors duration-200 hover:text-accent outline-none ${
+                    isParentActive('/produkte') ? 'text-accent' : 'text-steel'
+                  }`}
+                >
+                  {t('nav.products')}
+                  <ChevronDown className="w-4 h-4 opacity-60" />
+                  {isParentActive('/produkte') && (
+                    <motion.span
+                      layoutId="activeNav"
+                      className="absolute inset-x-0 -bottom-px h-0.5 bg-accent"
+                      transition={{ type: 'spring', stiffness: 350, damping: 30 }}
+                    />
+                  )}
+                </button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent
+                align="start"
+                className="w-64 p-2 bg-surface border-mist shadow-lg"
+              >
+                {productItems.map((item) => (
+                  <ProductDropdownItem key={item.key} item={item} />
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
+
+            {/* Leistungen dropdown */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <button
+                  className={`relative flex items-center gap-1 px-2 py-2 text-base font-medium transition-colors duration-200 hover:text-accent outline-none ${
+                    isParentActive('/leistungen') ? 'text-accent' : 'text-steel'
+                  }`}
+                >
+                  {t('nav.services')}
+                  <ChevronDown className="w-4 h-4 opacity-60" />
+                  {isParentActive('/leistungen') && (
+                    <motion.span
+                      layoutId="activeNav"
+                      className="absolute inset-x-0 -bottom-px h-0.5 bg-accent"
+                      transition={{ type: 'spring', stiffness: 350, damping: 30 }}
+                    />
+                  )}
+                </button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent
+                align="start"
+                className="w-56 p-2 bg-surface border-mist shadow-lg"
+              >
+                {serviceItems.map((item) => (
+                  <ServiceDropdownItem key={item.key} item={item} />
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
+
+            <NavLink href="/ueber-mich" label={t('nav.about')} active={isActive('/ueber-mich')} />
+            <NavLink href="/kontakt" label={t('nav.contact')} active={isActive('/kontakt')} />
+          </nav>
+        </div>
       </header>
 
       {/* ─── Mobile Full-Screen Overlay ──────────────────────────────── */}
@@ -322,9 +367,18 @@ export default function Header() {
               <Link
                 href="/"
                 onClick={() => setMobileOpen(false)}
-                className="text-lg font-bold tracking-wider text-ink"
+                className="flex items-center gap-2"
               >
-                TRADING HOUSE
+                <Image
+                  src="/logo.svg"
+                  alt="Trading House Logo"
+                  width={28}
+                  height={28}
+                  className="w-7 h-7"
+                />
+                <span className="text-xl font-bold tracking-wider text-ink">
+                  TRADING HOUSE
+                </span>
               </Link>
               <button
                 className="flex items-center justify-center w-10 h-10 rounded-md text-ink transition-colors hover:bg-accent-light hover:text-accent"
@@ -345,7 +399,7 @@ export default function Header() {
                 <Link
                   href="/"
                   onClick={() => setMobileOpen(false)}
-                  className={`block py-3 text-lg font-medium transition-colors hover:text-accent ${
+                  className={`block py-3 text-xl font-medium transition-colors hover:text-accent ${
                     isActive('/') ? 'text-accent' : 'text-ink'
                   }`}
                 >
@@ -355,7 +409,7 @@ export default function Header() {
 
               {/* Produkte */}
               <motion.div variants={itemVariants}>
-                <div className="py-3 text-lg font-medium text-ink">
+                <div className="py-3 text-xl font-medium text-ink">
                   {t('nav.products')}
                 </div>
                 <div className="ml-4 flex flex-col border-l border-mist pl-4">
@@ -366,7 +420,7 @@ export default function Header() {
                         <Link
                           href={item.route}
                           onClick={() => setMobileOpen(false)}
-                          className={`flex items-center gap-3 py-2.5 text-sm font-medium transition-colors hover:text-accent ${
+                          className={`flex items-center gap-3 py-2.5 text-base font-medium transition-colors hover:text-accent ${
                             isActive(item.route) ? 'text-accent' : 'text-steel'
                           }`}
                         >
@@ -381,7 +435,7 @@ export default function Header() {
 
               {/* Leistungen */}
               <motion.div variants={itemVariants}>
-                <div className="py-3 text-lg font-medium text-ink">
+                <div className="py-3 text-xl font-medium text-ink">
                   {t('nav.services')}
                 </div>
                 <div className="ml-4 flex flex-col border-l border-mist pl-4">
@@ -392,7 +446,7 @@ export default function Header() {
                         <Link
                           href={item.route}
                           onClick={() => setMobileOpen(false)}
-                          className={`flex items-center gap-3 py-2.5 text-sm font-medium transition-colors hover:text-accent ${
+                          className={`flex items-center gap-3 py-2.5 text-base font-medium transition-colors hover:text-accent ${
                             isActive(item.route) ? 'text-accent' : 'text-steel'
                           }`}
                         >
@@ -410,7 +464,7 @@ export default function Header() {
                 <Link
                   href="/ueber-mich"
                   onClick={() => setMobileOpen(false)}
-                  className={`block py-3 text-lg font-medium transition-colors hover:text-accent ${
+                  className={`block py-3 text-xl font-medium transition-colors hover:text-accent ${
                     isActive('/ueber-mich') ? 'text-accent' : 'text-ink'
                   }`}
                 >
@@ -423,7 +477,7 @@ export default function Header() {
                 <Link
                   href="/kontakt"
                   onClick={() => setMobileOpen(false)}
-                  className={`block py-3 text-lg font-medium transition-colors hover:text-accent ${
+                  className={`block py-3 text-xl font-medium transition-colors hover:text-accent ${
                     isActive('/kontakt') ? 'text-accent' : 'text-ink'
                   }`}
                 >
@@ -435,7 +489,7 @@ export default function Header() {
               <motion.div variants={itemVariants}>
                 <DropdownMenuSeparator className="my-4" />
                 <div className="flex items-center gap-3 py-3">
-                  <Globe className="w-4 h-4 text-steel" />
+                  <Globe className="w-5 h-5 text-steel" />
                   <div className="flex gap-2">
                     {locales.map((locale) => (
                       <button
@@ -444,7 +498,7 @@ export default function Header() {
                           router.replace(pathname, { locale: locale.code });
                           setMobileOpen(false);
                         }}
-                        className={`flex items-center gap-1.5 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                        className={`flex items-center gap-1.5 px-3 py-2 rounded-md text-base font-medium transition-colors ${
                           currentLocale.code === locale.code
                             ? 'bg-accent-light text-accent'
                             : 'text-steel hover:bg-accent-light hover:text-accent'
