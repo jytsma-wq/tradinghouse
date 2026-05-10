@@ -14,6 +14,7 @@ import {
   ArrowRight,
   type LucideIcon,
 } from 'lucide-react';
+import Image from 'next/image';
 
 const iconMap: Record<string, LucideIcon> = {
   cog: Cog,
@@ -22,6 +23,15 @@ const iconMap: Record<string, LucideIcon> = {
   'building-2': Building2,
   factory: Factory,
   cpu: Cpu,
+};
+
+const categoryImages: Record<string, string> = {
+  maschinen: '/images/industrial-products.jpg',
+  chemie: '/images/warehouse.jpg',
+  agrar: '/images/agriculture.jpg',
+  baustoffe: '/images/construction-materials.jpg',
+  stahl: '/images/warehouse.jpg',
+  elektronik: '/images/industrial-products.jpg',
 };
 
 const categories = [
@@ -57,7 +67,7 @@ export function ProductGrid() {
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
         >
-          WAS ICH ANBIETE
+          {t('products.overline')}
         </motion.p>
 
         {/* ─── Title ─────────────────────────────────────────────── */}
@@ -97,27 +107,42 @@ export function ProductGrid() {
               >
                 <Link
                   href={categoryRoutes[key]}
-                  className="block bg-surface border border-mist rounded-xl p-6 hover:shadow-md hover:border-accent/30 transition-all duration-300 cursor-pointer group"
+                  className="block bg-surface border border-mist rounded-xl overflow-hidden hover:shadow-md hover:border-accent/30 transition-all duration-300 cursor-pointer group"
                 >
-                  {/* Icon */}
-                  <div className="flex items-center justify-center w-12 h-12 rounded-lg bg-accent-light text-accent">
-                    <Icon className="w-6 h-6" />
+                  {/* Category Image */}
+                  <div className="relative h-40 overflow-hidden">
+                    <Image
+                      src={categoryImages[key]}
+                      alt={t(`products.categories.${key}.title`)}
+                      fill
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
+                      quality={75}
+                    />
+                    {/* Gradient overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-ink/40 to-transparent" />
+                    {/* Icon badge */}
+                    <div className="absolute bottom-3 left-3 flex items-center justify-center w-10 h-10 rounded-lg bg-white/90 backdrop-blur-sm text-accent">
+                      <Icon className="w-5 h-5" />
+                    </div>
                   </div>
 
-                  {/* Title */}
-                  <h3 className="font-semibold text-ink mt-4">
-                    {t(`products.categories.${key}.title`)}
-                  </h3>
+                  {/* Content */}
+                  <div className="p-5">
+                    {/* Title */}
+                    <h3 className="font-semibold text-ink">
+                      {t(`products.categories.${key}.title`)}
+                    </h3>
 
-                  {/* Description */}
-                  <p className="text-steel text-sm mt-2">
-                    {t(`products.categories.${key}.description`)}
-                  </p>
+                    {/* Description */}
+                    <p className="text-steel text-sm mt-2">
+                      {t(`products.categories.${key}.description`)}
+                    </p>
 
-                  {/* Arrow link */}
-                  <div className="flex items-center gap-1.5 text-accent text-sm font-medium mt-4 group-hover:gap-2.5 transition-all duration-300">
-                    {t('products.inquire')}
-                    <ArrowRight className="w-4 h-4" />
+                    {/* Arrow link */}
+                    <div className="flex items-center gap-1.5 text-accent text-sm font-medium mt-4 group-hover:gap-2.5 transition-all duration-300">
+                      {t('products.inquire')}
+                      <ArrowRight className="w-4 h-4" />
+                    </div>
                   </div>
                 </Link>
               </motion.div>

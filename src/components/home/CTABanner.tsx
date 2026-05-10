@@ -5,6 +5,7 @@ import { Link } from '@/i18n/navigation';
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
 import { ArrowRight } from 'lucide-react';
+import Image from 'next/image';
 
 export function CTABanner() {
   const t = useTranslations();
@@ -12,8 +13,22 @@ export function CTABanner() {
   const isInView = useInView(ref, { once: true, margin: '-60px' });
 
   return (
-    <section ref={ref} className="bg-accent py-16 md:py-24">
-      <div className="max-w-2xl mx-auto px-4 text-center">
+    <section ref={ref} className="relative py-16 md:py-24 overflow-hidden">
+      {/* Background image */}
+      <div className="absolute inset-0 z-0">
+        <Image
+          src="/images/warehouse.jpg"
+          alt=""
+          fill
+          className="object-cover object-center"
+          aria-hidden="true"
+          quality={70}
+        />
+        {/* Overlay with accent color */}
+        <div className="absolute inset-0 bg-accent/90" />
+      </div>
+
+      <div className="relative z-10 max-w-2xl mx-auto px-4 text-center">
         {/* ─── Title ─────────────────────────────────────────────── */}
         <motion.h2
           className="text-white text-2xl md:text-3xl font-bold"

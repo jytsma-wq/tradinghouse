@@ -12,6 +12,7 @@
   },
   "products": {
     "title": "Produkte",
+    "overline": "WAS ICH ANBIETE",
     "subtitle": "Was ich für Sie beschaffe",
     "viewAll": "Alle Produkte anzeigen",
     "inquire": "Anfragen",
@@ -79,6 +80,7 @@
     "languageList": "Deutsch (fließend) · Українська (Muttersprache)",
     "location": "Standort",
     "locationDetail": "Berlin, Deutschland",
+    "portraitAlt": "Aleksandr — Inhaber von Trading House",
     "ctLabel": "Was mich auszeichnet",
     "ctItems": {
       "bilingual": "Zweisprachig — Deutsch & Ukrainisch",
@@ -115,9 +117,12 @@
       "greeting": "Ihr persönlicher Handelspartner",
       "location": "zwischen Deutschland und der Ukraine.",
       "bilingual": "Ich spreche Ihre Sprache — auf Deutsch та українською.",
-      "cta": "Kostenlos anfragen"
+      "cta": "Kostenlos anfragen",
+      "imageAlt": "Internationaler Handel und Logistik zwischen Deutschland und der Ukraine"
     },
+    "howOverline": "SO ARBEITE ICH",
     "howTitle": "So arbeite ich",
+    "howImageAlt": "Grenzüberschreitende Logistik und Frachttransport",
     "howSteps": {
       "step1": {
         "title": "Sie anfragen",

@@ -1,6 +1,7 @@
 import { setRequestLocale } from 'next-intl/server';
 import { getTranslations } from 'next-intl/server';
 import { CheckCircle2, MapPin, Languages } from 'lucide-react';
+import Image from 'next/image';
 
 type Props = {
   params: Promise<{ locale: string }>;
@@ -72,18 +73,39 @@ export default async function UeberMichPage({ params }: Props) {
           </div>
         </div>
 
-        {/* Right Column — Decorative Element */}
+        {/* Right Column — Portrait Photo */}
         <div className="md:col-span-2">
-          <div className="bg-accent-light rounded-3xl p-8 flex flex-col items-center justify-center text-center min-h-[320px]">
-            <div className="w-16 h-16 rounded-full bg-accent/10 flex items-center justify-center mb-6">
-              <MapPin className="w-8 h-8 text-accent" />
+          <div className="relative">
+            {/* Portrait image */}
+            <div className="rounded-3xl overflow-hidden shadow-xl">
+              <Image
+                src="/images/aleksandr-portrait.jpg"
+                alt={t('portraitAlt')}
+                width={864}
+                height={1152}
+                className="w-full h-auto object-cover"
+                priority
+                quality={90}
+              />
             </div>
-            <p className="text-accent font-bold text-xl mb-1">Berlin</p>
-            <p className="text-steel text-sm">{t('locationDetail')}</p>
-            <div className="mt-6 w-12 h-0.5 bg-accent/20 rounded-full" />
-            <p className="mt-4 text-steel text-sm italic leading-relaxed max-w-[220px]">
-              {t('subtitle')}
-            </p>
+
+            {/* Decorative accent bar below image */}
+            <div className="mt-4 flex items-center gap-3">
+              <div className="h-1 w-12 bg-accent rounded-full" />
+              <p className="text-ink font-semibold text-sm">Aleksandr</p>
+            </div>
+
+            {/* Location badge */}
+            <div className="mt-3 flex items-center gap-2 bg-accent-light rounded-xl px-4 py-3">
+              <MapPin className="w-4 h-4 text-accent shrink-0" />
+              <div>
+                <p className="text-accent font-bold text-sm">Berlin</p>
+                <p className="text-steel text-xs">{t('locationDetail')}</p>
+              </div>
+            </div>
+
+            {/* Floating decorative dot */}
+            <div className="absolute -top-3 -right-3 w-6 h-6 bg-warmth rounded-full" />
           </div>
         </div>
       </div>
