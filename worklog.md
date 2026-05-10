@@ -133,3 +133,54 @@ Stage Summary:
 - All header text is one size larger than before for better readability
 - Language switcher balances left side, hamburger right side
 - Mobile overlay also updated with larger text and logo icon
+
+---
+Task ID: 6
+Agent: Main Agent
+Task: Add motion and life to the website — animations, parallax, marquee, particles, micro-interactions
+
+Work Log:
+- Hero: Added Ken Burns slow zoom effect (scale 1.0→1.08 over 20s, infinite reverse) on background image
+- Hero: Added staggered word-by-word reveal with blur-in effect on headline (each word fades in with blur→sharp)
+- Hero: Added pulsing shimmer on overline text
+- Hero: Added shine sweep on CTA button hover (white gradient slides across)
+- Hero: Added rotating abstract ring inside glassmorphism card
+- Hero: Flags now pulse gently (scale 1→1.05→1)
+- Hero: Connection lines between flags now breathe (scaleX animation)
+- Hero: Added third decorative dot with orbital float motion
+- Hero: Added scroll indicator at bottom (mouse scroll animation)
+- Hero: CTA arrow now nudges right on hover
+- Created MarqueeTicker component: dark bg-ink scrolling strip showing all 6 product categories with icons, seamless infinite loop, fade edges
+- ProductGrid: Added TiltCard wrapper — 3D perspective tilt on mouse move (rotateX/rotateY based on cursor position)
+- ProductGrid: Image zoom on hover increased to scale-110 (was scale-105)
+- ProductGrid: Icon badge wiggles on hover (rotate animation)
+- ProductGrid: Title changes to accent color on hover
+- ProductGrid: Arrow slides right on hover (translate-x-1)
+- HowIWork: Added animated vertical connector line (scaleY 0→1, origin-top)
+- HowIWork: Step number circles bounce in (scale 0→1.2→1)
+- HowIWork: Number circles scale up on hover (1.15)
+- HowIWork: Step cards now have border + background, slide right on hover
+- HowIWork: Added parallax scroll effect on image (useScroll + useTransform, 40px→-40px)
+- WhyMe: Converted from plain list to card grid with bg-surface, border, rounded-xl
+- WhyMe: Cards lift up on hover (y: -4)
+- WhyMe: Replaced CheckCircle2 icons with meaningful Lucide icons (Languages, User, Truck, UserCheck)
+- WhyMe: Icon badges animate on hover (wiggle rotate + scale)
+- WhyMe: Title changes to accent color on card hover
+- WhyMe: Added whyOverline translation key (DE/UK)
+- CTABanner: Added 7 floating particles (white/10 circles) with different sizes, positions, and timing
+- CTABanner: Added Ken Burns zoom on background image (scale 1→1.05→1, 15s)
+- CTABanner: Title uses blur-in reveal animation
+- CTABanner: Arrow nudges right on hover
+- Homepage: Added MarqueeTicker between Hero and ProductGrid
+- Build verified: all 38 routes compile successfully
+
+Stage Summary:
+- 10+ new animation types across the website
+- Hero feels cinematic with Ken Burns, staggered text, and scroll indicator
+- Marquee ticker adds continuous motion as a visual separator
+- Product cards have 3D tilt on mouse move
+- HowIWork has parallax image and animated connector
+- WhyMe cards lift and react to hover
+- CTA banner has floating particles for depth
+- All animations use Framer Motion for smooth 60fps performance
+- Translations updated with missing whyOverline key

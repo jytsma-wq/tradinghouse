@@ -3,7 +3,7 @@
 import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
 import { motion, useInView } from 'framer-motion';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import {
   Cog,
   FlaskConical,
@@ -51,6 +51,37 @@ const categoryRoutes: Record<string, string> = {
   stahl: '/produkte/stahl-metalle',
   elektronik: '/produkte/elektronik',
 };
+
+// ─── Tilt Card Wrapper ────────────────────────────────────────────────
+
+function TiltCard({ children, className }: { children: React.ReactNode; className?: string }) {
+  const [tilt, setTilt] = useState({ x: 0, y: 0 });
+
+  function handleMouseMove(e: React.MouseEvent<HTMLDivElement>) {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width - 0.5;
+    const y = (e.clientY - rect.top) / rect.height - 0.5;
+    setTilt({ x: y * -6, y: x * 6 });
+  }
+
+  function handleMouseLeave() {
+    setTilt({ x: 0, y: 0 });
+  }
+
+  return (
+    <motion.div
+      className={className}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      style={{
+        transform: `perspective(800px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
+        transition: 'transform 0.15s ease-out',
+      }}
+    >
+      {children}
+    </motion.div>
+  );
+}
 
 export function ProductGrid() {
   const t = useTranslations();
@@ -105,46 +136,52 @@ export function ProductGrid() {
                   delay: 0.1 + index * 0.07,
                 }}
               >
-                <Link
-                  href={categoryRoutes[key]}
-                  className="block bg-surface border border-mist rounded-xl overflow-hidden hover:shadow-md hover:border-accent/30 transition-all duration-300 cursor-pointer group"
-                >
-                  {/* Category Image */}
-                  <div className="relative h-40 overflow-hidden">
-                    <Image
-                      src={categoryImages[key]}
-                      alt={t(`products.categories.${key}.title`)}
-                      fill
-                      className="object-cover transition-transform duration-500 group-hover:scale-105"
-                      quality={75}
-                    />
-                    {/* Gradient overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-ink/40 to-transparent" />
-                    {/* Icon badge */}
-                    <div className="absolute bottom-3 left-3 flex items-center justify-center w-10 h-10 rounded-lg bg-white/90 backdrop-blur-sm text-accent">
-                      <Icon className="w-5 h-5" />
+                <TiltCard className="h-full">
+                  <Link
+                    href={categoryRoutes[key]}
+                    className="block bg-surface border border-mist rounded-xl overflow-hidden hover:shadow-lg hover:border-accent/30 transition-all duration-300 cursor-pointer group h-full"
+                  >
+                    {/* Category Image with parallax hover */}
+                    <div className="relative h-40 overflow-hidden">
+                      <Image
+                        src={categoryImages[key]}
+                        alt={t(`products.categories.${key}.title`)}
+                        fill
+                        className="object-cover transition-transform duration-700 group-hover:scale-110"
+                        quality={75}
+                      />
+                      {/* Gradient overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-ink/50 via-ink/10 to-transparent" />
+                      {/* Icon badge — animated on hover */}
+                      <motion.div
+                        className="absolute bottom-3 left-3 flex items-center justify-center w-10 h-10 rounded-lg bg-white/90 backdrop-blur-sm text-accent"
+                        whileHover={{ rotate: [0, -10, 10, 0] }}
+                        transition={{ duration: 0.4 }}
+                      >
+                        <Icon className="w-5 h-5" />
+                      </motion.div>
                     </div>
-                  </div>
 
-                  {/* Content */}
-                  <div className="p-5">
-                    {/* Title */}
-                    <h3 className="font-semibold text-ink">
-                      {t(`products.categories.${key}.title`)}
-                    </h3>
+                    {/* Content */}
+                    <div className="p-5">
+                      {/* Title */}
+                      <h3 className="font-semibold text-ink group-hover:text-accent transition-colors duration-300">
+                        {t(`products.categories.${key}.title`)}
+                      </h3>
 
-                    {/* Description */}
-                    <p className="text-steel text-sm mt-2">
-                      {t(`products.categories.${key}.description`)}
-                    </p>
+                      {/* Description */}
+                      <p className="text-steel text-sm mt-2">
+                        {t(`products.categories.${key}.description`)}
+                      </p>
 
-                    {/* Arrow link */}
-                    <div className="flex items-center gap-1.5 text-accent text-sm font-medium mt-4 group-hover:gap-2.5 transition-all duration-300">
-                      {t('products.inquire')}
-                      <ArrowRight className="w-4 h-4" />
+                      {/* Arrow link — slides on hover */}
+                      <div className="flex items-center gap-1.5 text-accent text-sm font-medium mt-4 group-hover:gap-2.5 transition-all duration-300">
+                        {t('products.inquire')}
+                        <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1 duration-300" />
+                      </div>
                     </div>
-                  </div>
-                </Link>
+                  </Link>
+                </TiltCard>
               </motion.div>
             );
           })}

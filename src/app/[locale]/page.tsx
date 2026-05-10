@@ -1,5 +1,6 @@
 import { setRequestLocale } from "next-intl/server";
 import { Hero } from "@/components/home/Hero";
+import { MarqueeTicker } from "@/components/home/MarqueeTicker";
 import { ProductGrid } from "@/components/home/ProductGrid";
 import { HowIWork } from "@/components/home/HowIWork";
 import { WhyMe } from "@/components/home/WhyMe";
@@ -16,6 +17,7 @@ export default async function HomePage({ params }: Props) {
   return (
     <>
       <Hero />
+      <MarqueeTicker />
       <ProductGrid />
       <HowIWork />
       <WhyMe />
