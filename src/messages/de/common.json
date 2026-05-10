@@ -172,6 +172,15 @@
     "disclaimer": "Haftungsausschluss",
     "disclaimerText": "Die Inhalte dieser Website wurden mit größter Sorgfalt erstellt. Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte kann ich jedoch keine Gewähr übernehmen. Als Dienstleister bin ich gemäß § 7 Abs.1 TMG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich."
   },
+  "whatsapp": {
+    "ariaLabel": "WhatsApp Chat öffnen",
+    "onlineStatus": "Online — antwortet meist innerhalb von Minuten",
+    "timestamp": "Heute",
+    "welcomeMessage": "Hallo! Willkommen bei Trading House. Wie kann ich Ihnen heute helfen? Fragen Sie jederzeit — ich antworte persönlich auf Deutsch oder українською. 🤝",
+    "messageTime": "Jetzt",
+    "startChat": "Chat starten",
+    "prefilledMessage": "Hallo Aleksandr, ich interessiere mich für Ihre Handelsdienstleistungen. Können Sie mir weiterhelfen?"
+  },
   "datenschutz": {
     "title": "Datenschutzerklärung",
     "subtitle": "Informationen zum Schutz Ihrer personenbezogenen Daten",

@@ -7,6 +7,7 @@ import { routing } from "@/i18n/routing";
 import { siteConfig } from "@/config/site";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import { FloatingWhatsApp } from "@/components/layout/FloatingWhatsApp";
 
 const dmSans = DM_Sans({
   variable: "--font-dm-sans",
@@ -77,6 +78,7 @@ export default async function LocaleLayout({ children, params }: Props) {
           <Header />
           <main className="flex-1">{children}</main>
           <Footer />
+          <FloatingWhatsApp />
         </NextIntlClientProvider>
       </body>
     </html>

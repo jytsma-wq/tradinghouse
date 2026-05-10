@@ -9,6 +9,7 @@ export const siteConfig = {
   defaultLocale: "de" as const,
   email: "info@tradinghouse.de",
   phone: "+49 30 123 456 78",
+  whatsapp: "493012345678",
   address: {
     street: "Musterstraße 12",
     zip: "10115",

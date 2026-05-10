@@ -79,3 +79,28 @@ Stage Summary:
 - Services page enriched with service-specific imagery
 - CTA banner has background warehouse image with overlay
 - Translation files updated with image alt texts in both languages
+
+---
+Task ID: 4
+Agent: Main Agent
+Task: Add floating WhatsApp Business button to every page with inviting welcome message
+
+Work Log:
+- Created FloatingWhatsApp component (src/components/layout/FloatingWhatsApp.tsx)
+- Component features: floating green button with pulse animation, WhatsApp chat panel with welcome bubble, auto-opens after 3 seconds, notification badge
+- Chat panel mimics WhatsApp style: green header with Trading House name + online status, chat bubble with welcome message in DE/UK, "Chat starten" CTA button
+- Pre-filled message when user clicks through: introduces them by name and asks about trading services
+- Added `whatsapp` field to site config (config/site.ts): "493012345678"
+- Added `whatsapp` namespace to both translation files with 7 keys each: ariaLabel, onlineStatus, timestamp, welcomeMessage, messageTime, startChat, prefilledMessage
+- German welcome: "Hallo! Willkommen bei Trading House. Wie kann ich Ihnen heute helfen?"
+- Ukrainian welcome: "Вітаю! Ласкаво просимо до Trading House. Чим я можу допомогти вам сьогодні?"
+- Added FloatingWhatsApp to locale layout so it appears on every page
+- Build verified: all 38 routes compile successfully
+
+Stage Summary:
+- Floating WhatsApp Business button appears on every page (bottom-right, fixed position)
+- Auto-opens welcome chat bubble after 3 seconds to invite engagement
+- Full bilingual support (DE/UK) for all WhatsApp text
+- Links to wa.me with pre-filled message in user's language
+- Pulse animation + notification badge draw attention
+- Professional chat panel design matching WhatsApp's visual language
