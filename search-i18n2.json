@@ -1,0 +1,65 @@
+[
+  {
+    "url": "https://nextjs.org/docs/pages/guides/internationalization",
+    "name": "Guides: Internationalization | Next.js",
+    "snippet": "Next.js has built-in support for internationalized (i18n) routing since v10.0.0. You can provide a list of locales, the default locale, and domain-specific locales and Next.js will automatically handle the routing.",
+    "host_name": "nextjs.org",
+    "rank": 0,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://dev.to/mukitaro/a-complete-guide-to-i18n-in-nextjs-15-app-router-with-next-intl-supporting-8-languages-1lgj",
+    "name": "A Complete Guide to i18n in Next.js 15 App Router with next",
+    "snippet": "This article walks through implementing multi-language support in Next.js 15 using next-intl, with real production code from DevType - a typing practice game for programmers.",
+    "host_name": "dev.to",
+    "rank": 1,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://next-intl.dev/docs/routing/configuration",
+    "name": "Routing configuration – Internationalization (i18n) for Next.js",
+    "snippet": "In case you’re building an app where locales can be added and removed at runtime, you can provide the routing configuration for the middleware dynamically per request.",
+    "host_name": "next-intl.dev",
+    "rank": 2,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://github.com/i18nexus/next-i18n-router",
+    "name": "GitHub - i18nexus/next-i18n-router: Next.js App Router",
+    "snippet": "This library adds back internationalized routing in addition to locale detection and optional cookie usage to set a user's preferred language. This library can be used with any of the popular Javascript i18n libraries such as react-i18next and react-intl. Tutorials and examples can be found here.",
+    "host_name": "github.com",
+    "rank": 3,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://www.launchidea.in/blog/nextjs/multi-language-website-nextjs-i18n",
+    "name": "Next.js 15 i18n Guide – Build Multi-Language Sites Fast",
+    "snippet": "Learn how to create blazing-fast, SEO-ready multi-language websites with Next.js 15’s App Router, server-side translations, middleware language detection, and...",
+    "host_name": "www.launchidea.in",
+    "rank": 4,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://www.buildwithmatija.com/blog/nextjs-internationalization-guide-next-intl-2025",
+    "name": "next-intl Guide: Add i18n to Next.js 16 (Complete Setup)",
+    "snippet": "Complete next-intl v4 setup for Next.js 16: routing, middleware, setRequestLocale explained, static generation, language switcher + TypeScript. Production-ready i18n in one guide.",
+    "host_name": "www.buildwithmatija.com",
+    "rank": 5,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://medium.com/@thomasaugot/next-js-15-app-router-internationalization-with-url-based-routing-7e49413dc7c1",
+    "name": "Next.js 15 App Router Internationalization with URL-Based Routing",
+    "snippet": "Building internationalization for Next.js 15 App Router requires more manual setup than the old Pages Router, but the result is a more flexible and maintainable solution.",
+    "host_name": "medium.com",
+    "rank": 6,
+    "date": "",
+    "favicon": ""
+  }
+]
