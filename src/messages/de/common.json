@@ -1,0 +1,184 @@
+{
+  "meta": {
+    "title": "Trading House — Ihr Handelspartner Deutschland ↔ Ukraine",
+    "description": "Ihr persönlicher Handelspartner zwischen Deutschland und der Ukraine. Warenhandel, Logistik und Zollabwicklung."
+  },
+  "nav": {
+    "home": "Startseite",
+    "products": "Produkte",
+    "services": "Leistungen",
+    "about": "Über mich",
+    "contact": "Kontakt"
+  },
+  "products": {
+    "title": "Produkte",
+    "subtitle": "Was ich für Sie beschaffe",
+    "viewAll": "Alle Produkte anzeigen",
+    "inquire": "Anfragen",
+    "categories": {
+      "maschinen": {
+        "title": "Maschinen & Anlagen",
+        "description": "Industrieanlagen, Werkzeugmaschinen und Produktionsausrüstung aus deutscher Fertigung.",
+        "icon": "cog"
+      },
+      "chemie": {
+        "title": "Chemische Produkte",
+        "description": "Industriechemikalien, Spezialchemie und Rohstoffe für die ukrainische Produktion.",
+        "icon": "flask-conical"
+      },
+      "agrar": {
+        "title": "Agrarprodukte",
+        "description": "Landmaschinen, Düngemittel und Agrartechnik für die ukrainische Landwirtschaft.",
+        "icon": "wheat"
+      },
+      "baustoffe": {
+        "title": "Baustoffe",
+        "description": "Baumaterialien, Sanitärtechnik und Baumaschinen für den Wiederaufbau.",
+        "icon": "building-2"
+      },
+      "stahl": {
+        "title": "Stahl & Metalle",
+        "description": "Stahlhalbzzeuge, Nichteisenmetalle und Metallprodukte für Industrie und Bau.",
+        "icon": "factory"
+      },
+      "elektronik": {
+        "title": "Elektronik & IT",
+        "description": "IT-Ausrüstung, Elektronikkomponenten und Automatisierungstechnik.",
+        "icon": "cpu"
+      }
+    }
+  },
+  "services": {
+    "title": "Leistungen",
+    "subtitle": "So arbeite ich",
+    "learnMore": "Mehr erfahren",
+    "items": {
+      "import": {
+        "title": "Import aus Deutschland",
+        "description": "Sie suchen deutsche Produkte für den ukrainischen Markt? Ich beschaffe sie für Sie — von der Anfrage bis zur Lieferung. Deutsche Qualität, ukrainische Perspektive.",
+        "features": ["Produktsuche & Beschaffung", "Preisverhandlung", "Qualitätsprüfung", "Lieferkoordination"]
+      },
+      "export": {
+        "title": "Export in die Ukraine",
+        "description": "Sie sind ein deutsches Unternehmen und möchten in die Ukraine exportieren? Ich kenne den Markt, die Vorschriften und die Menschen. Ich öffne Ihnen die Tür.",
+        "features": ["Marktanalyse", "Käufervermittlung", "Vertragsabwicklung", "Zollabwicklung"]
+      },
+      "logistik": {
+        "title": "Logistik & Zoll",
+        "description": "Der komplizierteste Teil des grenzüberschreitenden Handels? Zoll, Dokumente, Fracht. Genau hier bin ich Ihr Experte. DCFTA-Wissen aus erster Hand.",
+        "features": ["Zollanmeldung & Freigabe", "Frachtorganisation", "Dokumentenmanagement", "DCFTA-Beratung"]
+      }
+    }
+  },
+  "about": {
+    "title": "Über mich",
+    "subtitle": "Ein Ansprechpartner. Zwei Sprachen. Ihr Vorteil.",
+    "story": "Ich bin der Schnittstellenexperte zwischen Deutschland und der Ukraine. Mit Muttersprache Ukrainisch und fließend Deutsch verstehe ich nicht nur beide Sprachen — ich verstehe beide Geschäftskulturen.",
+    "approach": "Mein Ansatz ist einfach: Ich bin Ihr einziger Ansprechpartner von A bis Z. Keine Weiterleitung, keine Warteschleifen. Sie sprechen mit mir — und ich erledige es.",
+    "languages": "Sprachen",
+    "languageList": "Deutsch (fließend) · Українська (Muttersprache)",
+    "location": "Standort",
+    "locationDetail": "Berlin, Deutschland",
+    "ctLabel": "Was mich auszeichnet",
+    "ctItems": {
+      "bilingual": "Zweisprachig — Deutsch & Ukrainisch",
+      "personal": "Persönliche Betreuung — kein Callcenter",
+      "customs": "Zoll- und Logistikkompetenz aus erster Hand",
+      "single": "Ein Ansprechpartner von A bis Z"
+    }
+  },
+  "contact": {
+    "title": "Kontakt",
+    "subtitle": "Schreiben Sie mir — ich antworte persönlich.",
+    "form": {
+      "name": "Name",
+      "namePlaceholder": "Ihr Name",
+      "email": "E-Mail",
+      "emailPlaceholder": "ihre@email.de",
+      "phone": "Telefon",
+      "phonePlaceholder": "+49 ...",
+      "interest": "Produktinteresse",
+      "interestPlaceholder": "Wählen Sie eine Kategorie",
+      "message": "Nachricht",
+      "messagePlaceholder": "Beschreiben Sie, was Sie suchen...",
+      "submit": "Nachricht senden",
+      "sending": "Wird gesendet...",
+      "success": "Vielen Dank! Ich melde mich innerhalb von 24 Stunden bei Ihnen.",
+      "error": "Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut.",
+      "required": "Pflichtfeld"
+    },
+    "direct": "Direkter Kontakt",
+    "response": "Ich antworte innerhalb von 24 Stunden."
+  },
+  "home": {
+    "hero": {
+      "greeting": "Ihr persönlicher Handelspartner",
+      "location": "zwischen Deutschland und der Ukraine.",
+      "bilingual": "Ich spreche Ihre Sprache — auf Deutsch та українською.",
+      "cta": "Kostenlos anfragen"
+    },
+    "howTitle": "So arbeite ich",
+    "howSteps": {
+      "step1": {
+        "title": "Sie anfragen",
+        "description": "Sie beschreiben, was Sie brauchen — Produkt, Menge, Zeitrahmen."
+      },
+      "step2": {
+        "title": "Ich besorge",
+        "description": "Ich finde den besten Lieferanten, verhandle den Preis und organisiere die Logistik."
+      },
+      "step3": {
+        "title": "Lieferung & Zoll",
+        "description": "Ich kümmere mich um Fracht, Zolldokumente und DCFTA-Papiere — bis vor Ihre Tür."
+      }
+    },
+    "whyTitle": "Warum ich?",
+    "whyItems": {
+      "bilingual": "Zweisprachig: Deutsch & Ukrainisch",
+      "personal": "Persönliche Betreuung — kein Callcenter",
+      "customs": "Zoll- und Logistikkompetenz",
+      "single": "Ein Ansprechpartner von A bis Z"
+    },
+    "ctaBanner": {
+      "title": "Bereit für den nächsten Schritt?",
+      "subtitle": "Schreiben Sie mir — ich antworte persönlich.",
+      "button": "Nachricht senden"
+    }
+  },
+  "footer": {
+    "tagline": "Ihr persönlicher Handelspartner zwischen Deutschland und der Ukraine.",
+    "contact": "Kontakt",
+    "legal": "Rechtliches",
+    "impressum": "Impressum",
+    "datenschutz": "Datenschutz",
+    "rights": "© 2026 Trading House. Alle Rechte vorbehalten."
+  },
+  "impressum": {
+    "title": "Impressum",
+    "subtitle": "Angaben gemäß § 5 TMG",
+    "owner": "Inhaber",
+    "address": "Anschrift",
+    "contact": "Kontakt",
+    "email": "E-Mail",
+    "phone": "Telefon",
+    "vat": "USt-IdNr.",
+    "vatValue": "Wird nachgereicht",
+    "responsible": "Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV",
+    "disclaimer": "Haftungsausschluss",
+    "disclaimerText": "Die Inhalte dieser Website wurden mit größter Sorgfalt erstellt. Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte kann ich jedoch keine Gewähr übernehmen. Als Dienstleister bin ich gemäß § 7 Abs.1 TMG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich."
+  },
+  "datenschutz": {
+    "title": "Datenschutzerklärung",
+    "subtitle": "Informationen zum Schutz Ihrer personenbezogenen Daten",
+    "controller": "Verantwortlicher",
+    "controllerText": "Verantwortlicher im Sinne der Datenschutz-Grundverordnung (DSGVO) ist der Inhaber von Trading House (siehe Impressum).",
+    "collection": "Datenerhebung",
+    "collectionText": "Beim Besuch dieser Website werden automatisch Informationen durch den Server erfasst, wie Browser-Typ, Betriebssystem und Uhrzeit des Zugriffs. Diese Daten werden nur zur Sicherstellung eines reibungslosen Betriebs der Website verwendet.",
+    "forms": "Kontaktformular",
+    "formsText": "Wenn Sie mir über das Kontaktformular eine Nachricht senden, werden die von Ihnen eingegebenen Daten (Name, E-Mail-Adresse, Telefonnummer, Nachricht) ausschließlich zur Bearbeitung Ihrer Anfrage gespeichert und verwendet. Die Daten werden nicht an Dritte weitergegeben.",
+    "cookies": "Cookies",
+    "cookiesText": "Diese Website verwendet nur technisch notwendige Cookies (Sprachpräferenz). Es werden keine Tracking-Cookies eingesetzt.",
+    "rights": "Ihre Rechte",
+    "rightsText": "Sie haben das Recht auf Auskunft, Berichtigung, Löschung und Einschränkung der Verarbeitung Ihrer personenbezogenen Daten. Kontaktieren Sie mich dazu über die im Impressum angegebenen Kontaktdaten."
+  }
+}
