@@ -1,57 +1,116 @@
 import { setRequestLocale } from 'next-intl/server';
 import { getTranslations } from 'next-intl/server';
+import type { Metadata } from 'next';
 import { Link } from '@/i18n/navigation';
-import { Check, ArrowRight, Import, ArrowUpFromLine, Truck } from 'lucide-react';
+import { Check, ArrowRight, Import, ArrowUpFromLine, Truck, type LucideIcon } from 'lucide-react';
 import { notFound } from 'next/navigation';
+import { siteConfig } from '@/config/site';
+import { getServiceBySlug, serviceRoutes } from '@/config/routes';
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from '@/components/ui/breadcrumb';
+import { absoluteUrl, breadcrumbJsonLd, localizedAlternates, localizedPath } from '@/lib/seo';
 
-const slugToKey: Record<string, string> = {
-  import: 'import',
-  export: 'export',
-  'logistik-zoll': 'logistik',
-};
-
-const serviceIcons: Record<string, any> = {
+const serviceIcons: Record<string, LucideIcon> = {
   import: Import,
   export: ArrowUpFromLine,
   logistik: Truck,
 };
 
 export function generateStaticParams() {
-  return [
-    { service: 'import' },
-    { service: 'export' },
-    { service: 'logistik-zoll' },
-  ];
+  return serviceRoutes.map(({ slug }) => ({ service: slug }));
 }
 
 type Props = {
   params: Promise<{ locale: string; service: string }>;
 };
 
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale, service } = await params;
+  const route = getServiceBySlug(service);
+
+  if (!route) {
+    notFound();
+  }
+
+  const t = await getTranslations({ locale, namespace: 'services' });
+  const serviceTitle = t(`items.${route.key}.title`);
+  const description = t(`items.${route.key}.description`);
+  const title = `${serviceTitle} | ${siteConfig.name}`;
+  const path = localizedPath(locale, `/leistungen/${route.slug}`);
+
+  return {
+    title: {
+      absolute: title,
+    },
+    description,
+    alternates: localizedAlternates(path),
+    openGraph: {
+      title,
+      description,
+      url: path,
+      siteName: siteConfig.name,
+      locale: locale === 'de' ? 'de_DE' : 'uk_UA',
+      type: 'website',
+    },
+  };
+}
+
 export default async function ServiceDetailPage({ params }: Props) {
   const { locale, service } = await params;
   setRequestLocale(locale);
 
-  const translationKey = slugToKey[service];
-  if (!translationKey) {
+  const route = getServiceBySlug(service);
+  if (!route) {
     notFound();
   }
 
   const t = await getTranslations('services');
+  const tNav = await getTranslations('nav');
+  const translationKey = route.key;
+  const serviceTitle = t(`items.${translationKey}.title`);
   const Icon = serviceIcons[translationKey] || Truck;
   const features = t.raw(`items.${translationKey}.features`) as string[];
+  const breadcrumbSchema = breadcrumbJsonLd([
+    { name: tNav('home'), url: absoluteUrl(localizedPath(locale)) },
+    { name: t('title'), url: absoluteUrl(localizedPath(locale, '/leistungen')) },
+    {
+      name: serviceTitle,
+      url: absoluteUrl(localizedPath(locale, `/leistungen/${route.slug}`)),
+    },
+  ]);
 
   return (
     <section className="max-w-4xl mx-auto px-4 py-16 md:py-24">
-      {/* Breadcrumb */}
-      <nav className="mb-8">
-        <Link
-          href="/leistungen"
-          className="text-sm text-steel hover:text-accent transition-colors"
-        >
-          ← {t('title')}
-        </Link>
-      </nav>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+
+      <Breadcrumb className="mb-8">
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink asChild>
+              <Link href="/">{tNav('home')}</Link>
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbLink asChild>
+              <Link href="/leistungen">{t('title')}</Link>
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbPage>{serviceTitle}</BreadcrumbPage>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
 
       {/* Service Header */}
       <div className="flex items-center gap-4 mb-6">
@@ -60,7 +119,7 @@ export default async function ServiceDetailPage({ params }: Props) {
         </div>
         <div>
           <h1 className="font-bold text-4xl text-ink">
-            {t(`items.${translationKey}.title`)}
+            {serviceTitle}
           </h1>
         </div>
       </div>

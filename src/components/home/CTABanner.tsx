@@ -2,28 +2,46 @@
 
 import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
-import { motion, useInView } from 'framer-motion';
+import { motion, useInView, useReducedMotion } from 'framer-motion';
 import { useRef } from 'react';
 import { ArrowRight } from 'lucide-react';
 import Image from 'next/image';
 
 // Floating particles for visual depth
-function FloatingParticle({ delay, x, size }: { delay: number; x: string; size: number }) {
+function FloatingParticle({
+  delay,
+  x,
+  size,
+  shouldReduceMotion,
+}: {
+  delay: number;
+  x: string;
+  size: number;
+  shouldReduceMotion: boolean;
+}) {
   return (
     <motion.div
       className="absolute rounded-full bg-white/10"
       style={{ width: size, height: size, left: x }}
-      animate={{
-        y: [0, -30, 0],
-        opacity: [0.1, 0.3, 0.1],
-        scale: [1, 1.2, 1],
-      }}
-      transition={{
-        duration: 4 + delay,
-        repeat: Infinity,
-        ease: 'easeInOut',
-        delay,
-      }}
+      animate={
+        shouldReduceMotion
+          ? { y: 0, opacity: 0.1, scale: 1 }
+          : {
+              y: [0, -30, 0],
+              opacity: [0.1, 0.3, 0.1],
+              scale: [1, 1.2, 1],
+            }
+      }
+      transition={
+        shouldReduceMotion
+          ? { duration: 0 }
+          : {
+              duration: 4 + delay,
+              repeat: Infinity,
+              ease: 'easeInOut',
+              delay,
+            }
+      }
     />
   );
 }
@@ -32,6 +50,7 @@ export function CTABanner() {
   const t = useTranslations();
   const ref = useRef<HTMLElement>(null);
   const isInView = useInView(ref, { once: true, margin: '-60px' });
+  const shouldReduceMotion = useReducedMotion();
 
   const particles = [
     { delay: 0, x: '10%', size: 8 },
@@ -49,8 +68,8 @@ export function CTABanner() {
       <div className="absolute inset-0 z-0 overflow-hidden">
         <motion.div
           className="absolute inset-0"
-          animate={{ scale: [1, 1.05, 1] }}
-          transition={{ duration: 15, ease: 'linear', repeat: Infinity }}
+          animate={{ scale: shouldReduceMotion ? 1 : [1, 1.05, 1] }}
+          transition={shouldReduceMotion ? { duration: 0 } : { duration: 15, ease: 'linear', repeat: Infinity }}
         >
           <Image
             src="/images/warehouse.jpg"
@@ -58,6 +77,7 @@ export function CTABanner() {
             fill
             className="object-cover object-center"
             aria-hidden="true"
+            sizes="100vw"
             quality={70}
           />
         </motion.div>
@@ -68,7 +88,13 @@ export function CTABanner() {
       {/* Floating particles */}
       <div className="absolute inset-0 z-[1]">
         {particles.map((p, i) => (
-          <FloatingParticle key={i} delay={p.delay} x={p.x} size={p.size} />
+          <FloatingParticle
+            key={i}
+            delay={p.delay}
+            x={p.x}
+            size={p.size}
+            shouldReduceMotion={Boolean(shouldReduceMotion)}
+          />
         ))}
       </div>
 
@@ -78,7 +104,7 @@ export function CTABanner() {
           className="text-white text-2xl md:text-3xl font-bold"
           initial={{ opacity: 0, y: 20, filter: 'blur(8px)' }}
           animate={isInView ? { opacity: 1, y: 0, filter: 'blur(0px)' } : { opacity: 0, y: 20, filter: 'blur(8px)' }}
-          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
         >
           {t('home.ctaBanner.title')}
         </motion.h2>
@@ -88,7 +114,7 @@ export function CTABanner() {
           className="text-white/80 mt-2"
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1], delay: 0.08 }}
+          transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.5, ease: [0.22, 1, 0.36, 1], delay: 0.08 }}
         >
           {t('home.ctaBanner.subtitle')}
         </motion.p>
@@ -97,7 +123,7 @@ export function CTABanner() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1], delay: 0.16 }}
+          transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.5, ease: [0.22, 1, 0.36, 1], delay: 0.16 }}
           className="mt-8"
         >
           <Link

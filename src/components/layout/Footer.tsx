@@ -66,6 +66,14 @@ export default async function Footer() {
                   {t("datenschutz")}
                 </Link>
               </li>
+              <li>
+                <Link
+                  href="/faq"
+                  className="hover:text-white transition-colors"
+                >
+                  {t("faq")}
+                </Link>
+              </li>
             </ul>
           </div>
         </div>

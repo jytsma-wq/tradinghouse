@@ -1,9 +1,9 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, type KeyboardEvent } from 'react';
 import { useTranslations } from 'next-intl';
 import { usePathname, useRouter, Link } from '@/i18n/navigation';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, type Variants } from 'framer-motion';
 import Image from 'next/image';
 import {
   Menu,
@@ -52,12 +52,12 @@ const serviceItems = [
 
 // ─── Framer Motion variants ────────────────────────────────────────────────
 
-const overlayVariants = {
+const overlayVariants: Variants = {
   hidden: { opacity: 0 },
   visible: { opacity: 1 },
 };
 
-const containerVariants = {
+const containerVariants: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
@@ -65,7 +65,7 @@ const containerVariants = {
   },
 };
 
-const itemVariants = {
+const itemVariants: Variants = {
   hidden: { opacity: 0, x: -16 },
   visible: {
     opacity: 1,
@@ -74,7 +74,7 @@ const itemVariants = {
   },
 };
 
-const subItemVariants = {
+const subItemVariants: Variants = {
   hidden: { opacity: 0, x: -12 },
   visible: {
     opacity: 1,
@@ -180,6 +180,13 @@ export default function Header() {
     return pathname.startsWith(parent);
   }
 
+  function handleDropdownTriggerKeyDown(event: KeyboardEvent<HTMLButtonElement>) {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      event.currentTarget.click();
+    }
+  }
+
   return (
     <>
       {/* ─── Sticky Header ─────────────────────────────────────────── */}
@@ -230,6 +237,7 @@ export default function Header() {
               alt="Trading House Logo"
               width={32}
               height={32}
+              sizes="32px"
               className="w-8 h-8"
             />
             <span className="text-xl font-bold tracking-wider text-ink">
@@ -291,6 +299,7 @@ export default function Header() {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <button
+                  onKeyDown={handleDropdownTriggerKeyDown}
                   className={`relative flex items-center gap-1 px-2 py-2 text-base font-medium transition-colors duration-200 hover:text-accent outline-none ${
                     isParentActive('/produkte') ? 'text-accent' : 'text-steel'
                   }`}
@@ -320,6 +329,7 @@ export default function Header() {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <button
+                  onKeyDown={handleDropdownTriggerKeyDown}
                   className={`relative flex items-center gap-1 px-2 py-2 text-base font-medium transition-colors duration-200 hover:text-accent outline-none ${
                     isParentActive('/leistungen') ? 'text-accent' : 'text-steel'
                   }`}
@@ -347,6 +357,7 @@ export default function Header() {
 
             <NavLink href="/ueber-mich" label={t('nav.about')} active={isActive('/ueber-mich')} />
             <NavLink href="/kontakt" label={t('nav.contact')} active={isActive('/kontakt')} />
+            <NavLink href="/faq" label={t('nav.faq')} active={isActive('/faq')} />
           </nav>
         </div>
       </header>
@@ -374,6 +385,7 @@ export default function Header() {
                   alt="Trading House Logo"
                   width={28}
                   height={28}
+                  sizes="28px"
                   className="w-7 h-7"
                 />
                 <span className="text-xl font-bold tracking-wider text-ink">
@@ -482,6 +494,19 @@ export default function Header() {
                   }`}
                 >
                   {t('nav.contact')}
+                </Link>
+              </motion.div>
+
+              {/* FAQ */}
+              <motion.div variants={itemVariants}>
+                <Link
+                  href="/faq"
+                  onClick={() => setMobileOpen(false)}
+                  className={`block py-3 text-xl font-medium transition-colors hover:text-accent ${
+                    isActive('/faq') ? 'text-accent' : 'text-ink'
+                  }`}
+                >
+                  {t('nav.faq')}
                 </Link>
               </motion.div>
 

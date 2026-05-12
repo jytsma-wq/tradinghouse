@@ -84,6 +84,7 @@ export default async function UeberMichPage({ params }: Props) {
                 width={864}
                 height={1152}
                 className="w-full h-auto object-cover"
+                sizes="(max-width: 768px) 100vw, 40vw"
                 priority
                 quality={90}
               />

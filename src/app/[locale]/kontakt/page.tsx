@@ -1,7 +1,7 @@
 import { setRequestLocale } from 'next-intl/server';
 import { getTranslations } from 'next-intl/server';
 import { siteConfig } from '@/config/site';
-import { Mail, Phone, Clock } from 'lucide-react';
+import { Mail, Phone, Clock, MapPin } from 'lucide-react';
 import { InquiryForm } from '@/components/contact/InquiryForm';
 
 type Props = {
@@ -13,6 +13,8 @@ export default async function KontaktPage({ params }: Props) {
   setRequestLocale(locale);
 
   const t = await getTranslations('contact');
+  const address = `${siteConfig.address.street}, ${siteConfig.address.zip} ${siteConfig.address.city}, ${siteConfig.address.country}`;
+  const mapSrc = `https://www.google.com/maps?q=${encodeURIComponent(address)}&output=embed`;
 
   return (
     <section className="max-w-4xl mx-auto px-4 py-16 md:py-24">
@@ -74,6 +76,29 @@ export default async function KontaktPage({ params }: Props) {
               <div>
                 <p className="text-ink font-medium">{t('response')}</p>
               </div>
+            </div>
+
+            {/* Address + Map */}
+            <div className="flex items-start gap-3">
+              <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-accent-light text-accent shrink-0">
+                <MapPin className="w-5 h-5" />
+              </div>
+              <div>
+                <p className="text-sm text-steel">
+                  {locale === 'de' ? 'Adresse' : 'Адреса'}
+                </p>
+                <p className="text-ink font-medium">{address}</p>
+              </div>
+            </div>
+
+            <div className="overflow-hidden rounded-xl border border-mist bg-surface">
+              <iframe
+                src={mapSrc}
+                title={locale === 'de' ? 'Karte zum Standort' : 'Карта розташування'}
+                loading="lazy"
+                className="h-64 w-full border-0"
+                referrerPolicy="no-referrer-when-downgrade"
+              />
             </div>
           </div>
         </div>

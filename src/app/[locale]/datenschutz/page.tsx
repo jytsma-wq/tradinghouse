@@ -14,7 +14,7 @@ export default async function DatenschutzPage({ params }: Props) {
   const sections = [
     { headingKey: 'controller', textKey: 'controllerText' },
     { headingKey: 'collection', textKey: 'collectionText' },
-    { headingKey: 'forms', textKey: 'formsText' },
+    { headingKey: 'contactForm', textKey: 'contactFormText' },
     { headingKey: 'cookies', textKey: 'cookiesText' },
     { headingKey: 'rights', textKey: 'rightsText' },
   ] as const;

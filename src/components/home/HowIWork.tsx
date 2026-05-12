@@ -1,7 +1,7 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import { motion, useInView, useScroll, useTransform } from 'framer-motion';
+import { motion, useInView, useReducedMotion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
 import Image from 'next/image';
 
@@ -11,13 +11,15 @@ export function HowIWork() {
   const t = useTranslations();
   const ref = useRef<HTMLElement>(null);
   const isInView = useInView(ref, { once: true, margin: '-80px' });
+  const shouldReduceMotion = useReducedMotion();
 
   // Parallax on the image
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ['start end', 'end start'],
   });
-  const imageY = useTransform(scrollYProgress, [0, 1], [40, -40]);
+  const rawImageY = useTransform(scrollYProgress, [0, 1], [40, -40]);
+  const imageY = shouldReduceMotion ? 0 : rawImageY;
 
   return (
     <section ref={ref} className="bg-canvas py-20 md:py-28 overflow-hidden">
@@ -27,7 +29,7 @@ export function HowIWork() {
           className="text-accent uppercase tracking-widest text-xs font-semibold text-center"
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+          transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
         >
           {t('home.howOverline')}
         </motion.p>
@@ -36,7 +38,7 @@ export function HowIWork() {
           className="text-ink text-3xl font-bold text-center mt-2"
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1], delay: 0.08 }}
+          transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.5, ease: [0.22, 1, 0.36, 1], delay: 0.08 }}
         >
           {t('home.howTitle')}
         </motion.h2>
@@ -50,7 +52,7 @@ export function HowIWork() {
               className="absolute left-5 top-5 bottom-5 w-0.5 bg-accent/20 rounded-full origin-top"
               initial={{ scaleY: 0 }}
               animate={isInView ? { scaleY: 1 } : { scaleY: 0 }}
-              transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1], delay: 0.3 }}
+              transition={shouldReduceMotion ? { duration: 0 } : { duration: 1.2, ease: [0.22, 1, 0.36, 1], delay: 0.3 }}
             />
 
             {steps.map((step, index) => (
@@ -59,21 +61,25 @@ export function HowIWork() {
                 className="flex items-start gap-5 relative"
                 initial={{ opacity: 0, x: -24 }}
                 animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -24 }}
-                transition={{
-                  duration: 0.5,
-                  ease: [0.22, 1, 0.36, 1],
-                  delay: 0.15 + index * 0.2,
-                }}
+                transition={
+                  shouldReduceMotion
+                    ? { duration: 0 }
+                    : {
+                        duration: 0.5,
+                        ease: [0.22, 1, 0.36, 1],
+                        delay: 0.15 + index * 0.2,
+                      }
+                }
               >
                 {/* Number circle — pulses when active */}
                 <motion.div
                   className="w-10 h-10 rounded-full bg-accent text-white flex items-center justify-center font-bold text-base shrink-0 mt-1 z-10 shadow-md shadow-accent/20"
-                  whileHover={{ scale: 1.15 }}
-                  transition={{ type: 'spring', stiffness: 300, damping: 15 }}
+                  whileHover={shouldReduceMotion ? undefined : { scale: 1.15 }}
+                  transition={shouldReduceMotion ? { duration: 0 } : { type: 'spring', stiffness: 300, damping: 15 }}
                 >
                   <motion.span
-                    animate={isInView ? { scale: [0, 1.2, 1] } : {}}
-                    transition={{ duration: 0.4, delay: 0.3 + index * 0.2 }}
+                    animate={isInView ? { scale: shouldReduceMotion ? 1 : [0, 1.2, 1] } : {}}
+                    transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.4, delay: 0.3 + index * 0.2 }}
                   >
                     {index + 1}
                   </motion.span>
@@ -82,8 +88,8 @@ export function HowIWork() {
                 {/* Step content */}
                 <motion.div
                   className="bg-surface border border-mist rounded-xl p-4 flex-1 group hover:border-accent/30 hover:shadow-md transition-all duration-300"
-                  whileHover={{ x: 4 }}
-                  transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+                  whileHover={shouldReduceMotion ? undefined : { x: 4 }}
+                  transition={shouldReduceMotion ? { duration: 0 } : { type: 'spring', stiffness: 300, damping: 20 }}
                 >
                   <h3 className="font-semibold text-ink group-hover:text-accent transition-colors">
                     {t(`home.howSteps.${step}.title`)}
@@ -101,7 +107,7 @@ export function HowIWork() {
             className="flex-1 w-full"
             initial={{ opacity: 0, x: 24 }}
             animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 24 }}
-            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.3 }}
+            transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.3 }}
           >
             <div className="relative rounded-2xl overflow-hidden shadow-lg">
               <motion.div style={{ y: imageY }}>
@@ -111,6 +117,7 @@ export function HowIWork() {
                   width={1344}
                   height={768}
                   className="w-full h-auto object-cover scale-110"
+                  sizes="(max-width: 1024px) 100vw, 50vw"
                   quality={85}
                 />
               </motion.div>

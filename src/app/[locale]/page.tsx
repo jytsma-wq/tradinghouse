@@ -4,6 +4,7 @@ import { MarqueeTicker } from "@/components/home/MarqueeTicker";
 import { ProductGrid } from "@/components/home/ProductGrid";
 import { HowIWork } from "@/components/home/HowIWork";
 import { WhyMe } from "@/components/home/WhyMe";
+import { Testimonials } from "@/components/home/Testimonials";
 import { CTABanner } from "@/components/home/CTABanner";
 
 type Props = {
@@ -21,6 +22,7 @@ export default async function HomePage({ params }: Props) {
       <ProductGrid />
       <HowIWork />
       <WhyMe />
+      <Testimonials />
       <CTABanner />
     </>
   );

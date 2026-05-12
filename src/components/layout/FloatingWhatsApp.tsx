@@ -1,13 +1,15 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useTranslations } from 'next-intl';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useLocale, useTranslations } from 'next-intl';
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { X, MessageCircle } from 'lucide-react';
 import { siteConfig } from '@/config/site';
 
 export function FloatingWhatsApp() {
+  const locale = useLocale();
   const t = useTranslations('whatsapp');
+  const shouldReduceMotion = useReducedMotion();
   const [isOpen, setIsOpen] = useState(false);
   const [hasAutoOpened, setHasAutoOpened] = useState(false);
 
@@ -22,7 +24,8 @@ export function FloatingWhatsApp() {
   }, [hasAutoOpened]);
 
   // WhatsApp Business link — uses the phone number from site config
-  const whatsappLink = `https://wa.me/${siteConfig.whatsapp}?text=${encodeURIComponent(t('prefilledMessage'))}`;
+  const prefilledMessage = t('prefilledMessage');
+  const whatsappLink = `https://wa.me/${siteConfig.whatsapp}?text=${encodeURIComponent(prefilledMessage)}`;
 
   return (
     <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3">
@@ -33,8 +36,9 @@ export function FloatingWhatsApp() {
             initial={{ opacity: 0, y: 12, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 12, scale: 0.95 }}
-            transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+            transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
             className="bg-surface rounded-2xl shadow-2xl border border-mist overflow-hidden max-w-[300px] w-full"
+            data-locale={locale}
           >
             {/* Header */}
             <div className="bg-[#25D366] px-4 py-3 flex items-center justify-between">
@@ -93,11 +97,16 @@ export function FloatingWhatsApp() {
         onClick={() => setIsOpen(!isOpen)}
         className="relative w-14 h-14 bg-[#25D366] hover:bg-[#1EB954] rounded-full flex items-center justify-center shadow-lg shadow-[#25D366]/30 transition-colors duration-200 active:scale-95"
         aria-label={t('ariaLabel')}
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
+        whileHover={shouldReduceMotion ? undefined : { scale: 1.05 }}
+        whileTap={shouldReduceMotion ? undefined : { scale: 0.95 }}
+        transition={shouldReduceMotion ? { duration: 0 } : undefined}
       >
         {/* Pulse ring */}
-        <span className="absolute inset-0 rounded-full bg-[#25D366] animate-ping opacity-20" />
+        <span
+          className={`absolute inset-0 rounded-full bg-[#25D366] opacity-20 ${
+            shouldReduceMotion ? '' : 'animate-ping'
+          }`}
+        />
 
         {/* WhatsApp Icon */}
         <svg viewBox="0 0 24 24" className="w-7 h-7 fill-white relative z-10">
@@ -109,6 +118,7 @@ export function FloatingWhatsApp() {
           <motion.span
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
+            transition={shouldReduceMotion ? { duration: 0 } : undefined}
             className="absolute -top-1 -right-1 w-5 h-5 bg-warmth text-white text-[10px] font-bold rounded-full flex items-center justify-center"
           >
             1

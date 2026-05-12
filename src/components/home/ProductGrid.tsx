@@ -2,7 +2,7 @@
 
 import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
-import { motion, useInView } from 'framer-motion';
+import { motion, useInView, useReducedMotion } from 'framer-motion';
 import { useRef, useState } from 'react';
 import {
   Cog,
@@ -56,8 +56,13 @@ const categoryRoutes: Record<string, string> = {
 
 function TiltCard({ children, className }: { children: React.ReactNode; className?: string }) {
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
+  const shouldReduceMotion = useReducedMotion();
 
   function handleMouseMove(e: React.MouseEvent<HTMLDivElement>) {
+    if (shouldReduceMotion) {
+      return;
+    }
+
     const rect = e.currentTarget.getBoundingClientRect();
     const x = (e.clientX - rect.left) / rect.width - 0.5;
     const y = (e.clientY - rect.top) / rect.height - 0.5;
@@ -74,8 +79,10 @@ function TiltCard({ children, className }: { children: React.ReactNode; classNam
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       style={{
-        transform: `perspective(800px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
-        transition: 'transform 0.15s ease-out',
+        transform: shouldReduceMotion
+          ? 'none'
+          : `perspective(800px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
+        transition: shouldReduceMotion ? 'transform 0s' : 'transform 0.15s ease-out',
       }}
     >
       {children}
@@ -87,6 +94,7 @@ export function ProductGrid() {
   const t = useTranslations();
   const ref = useRef<HTMLElement>(null);
   const isInView = useInView(ref, { once: true, margin: '-80px' });
+  const shouldReduceMotion = useReducedMotion();
 
   return (
     <section ref={ref} className="bg-surface-raised py-20 md:py-28">
@@ -96,7 +104,7 @@ export function ProductGrid() {
           className="text-accent uppercase tracking-widest text-xs font-semibold text-center"
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+          transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
         >
           {t('products.overline')}
         </motion.p>
@@ -106,7 +114,7 @@ export function ProductGrid() {
           className="text-ink text-3xl font-bold text-center mt-2"
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1], delay: 0.08 }}
+          transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.5, ease: [0.22, 1, 0.36, 1], delay: 0.08 }}
         >
           {t('products.title')}
         </motion.h2>
@@ -116,7 +124,7 @@ export function ProductGrid() {
           className="text-steel text-center mt-2"
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1], delay: 0.16 }}
+          transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.5, ease: [0.22, 1, 0.36, 1], delay: 0.16 }}
         >
           {t('products.subtitle')}
         </motion.p>
@@ -130,11 +138,15 @@ export function ProductGrid() {
                 key={key}
                 initial={{ opacity: 0, y: 24 }}
                 animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
-                transition={{
-                  duration: 0.5,
-                  ease: [0.22, 1, 0.36, 1],
-                  delay: 0.1 + index * 0.07,
-                }}
+                transition={
+                  shouldReduceMotion
+                    ? { duration: 0 }
+                    : {
+                        duration: 0.5,
+                        ease: [0.22, 1, 0.36, 1],
+                        delay: 0.1 + index * 0.07,
+                      }
+                }
               >
                 <TiltCard className="h-full">
                   <Link
@@ -148,6 +160,7 @@ export function ProductGrid() {
                         alt={t(`products.categories.${key}.title`)}
                         fill
                         className="object-cover transition-transform duration-700 group-hover:scale-110"
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                         quality={75}
                       />
                       {/* Gradient overlay */}
@@ -155,8 +168,8 @@ export function ProductGrid() {
                       {/* Icon badge — animated on hover */}
                       <motion.div
                         className="absolute bottom-3 left-3 flex items-center justify-center w-10 h-10 rounded-lg bg-white/90 backdrop-blur-sm text-accent"
-                        whileHover={{ rotate: [0, -10, 10, 0] }}
-                        transition={{ duration: 0.4 }}
+                        whileHover={shouldReduceMotion ? undefined : { rotate: [0, -10, 10, 0] }}
+                        transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.4 }}
                       >
                         <Icon className="w-5 h-5" />
                       </motion.div>

@@ -1,24 +1,20 @@
 import type { MetadataRoute } from "next";
 import { siteConfig } from "@/config/site";
+import { categoryRoutes, serviceRoutes, staticRoutes } from "@/config/routes";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const routes = [
-    "",
-    "/produkte",
-    "/produkte/maschinen",
-    "/produkte/chemie",
-    "/produkte/agrar",
-    "/produkte/baustoffe",
-    "/produkte/stahl-metalle",
-    "/produkte/elektronik",
-    "/leistungen",
-    "/leistungen/import",
-    "/leistungen/export",
-    "/leistungen/logistik-zoll",
-    "/ueber-mich",
-    "/kontakt",
-    "/impressum",
-    "/datenschutz",
+    ...staticRoutes,
+    ...categoryRoutes.map(({ slug, lastModified }) => ({
+      path: `/produkte/${slug}`,
+      lastModified,
+      priority: 0.6,
+    })),
+    ...serviceRoutes.map(({ slug, lastModified }) => ({
+      path: `/leistungen/${slug}`,
+      lastModified,
+      priority: 0.6,
+    })),
   ];
 
   const entries: MetadataRoute.Sitemap = [];
@@ -26,10 +22,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
   for (const locale of siteConfig.locales) {
     for (const route of routes) {
       entries.push({
-        url: `${siteConfig.url}/${locale}${route}`,
-        lastModified: new Date(),
-        changeFrequency: route === "" ? "weekly" : "monthly",
-        priority: route === "" ? 1.0 : route.split("/").length === 2 ? 0.8 : 0.6,
+        url: `${siteConfig.url}/${locale}${route.path}`,
+        lastModified: new Date(route.lastModified),
+        changeFrequency: route.path === "" ? "weekly" : "monthly",
+        priority: route.priority,
       });
     }
   }

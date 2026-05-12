@@ -46,6 +46,7 @@ export default async function LeistungenPage({ params }: Props) {
                     alt={t(`items.${key}.title`)}
                     fill
                     className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 40vw"
                     quality={80}
                   />
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent to-surface/20 md:bg-gradient-to-l md:from-transparent md:to-surface/30" />

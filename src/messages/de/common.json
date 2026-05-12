@@ -8,7 +8,8 @@
     "products": "Produkte",
     "services": "Leistungen",
     "about": "Über mich",
-    "contact": "Kontakt"
+    "contact": "Kontakt",
+    "faq": "FAQ"
   },
   "products": {
     "title": "Produkte",
@@ -106,11 +107,30 @@
       "submit": "Nachricht senden",
       "sending": "Wird gesendet...",
       "success": "Vielen Dank! Ich melde mich innerhalb von 24 Stunden bei Ihnen.",
-      "error": "Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut.",
-      "required": "Pflichtfeld"
+      "error": "Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut oder schreiben Sie direkt per E-Mail.",
+      "required": "Pflichtfeld",
+      "invalidEmail": "Bitte geben Sie eine gültige E-Mail-Adresse ein."
     },
     "direct": "Direkter Kontakt",
     "response": "Ich antworte innerhalb von 24 Stunden."
+  },
+  "cookieBanner": {
+    "message": "Diese Website verwendet technisch notwendige Cookies, um Spracheinstellungen und Ihre Cookie-Auswahl zu speichern.",
+    "accept": "Akzeptieren",
+    "decline": "Ablehnen"
+  },
+  "accessibility": {
+    "skipToContent": "Zum Inhalt springen"
+  },
+  "notFound": {
+    "title": "Seite nicht gefunden",
+    "message": "Die gesuchte Seite existiert nicht oder wurde verschoben.",
+    "home": "Zurück zur Startseite"
+  },
+  "error": {
+    "title": "Etwas ist schiefgelaufen",
+    "message": "Die Seite konnte nicht geladen werden. Bitte versuchen Sie es erneut.",
+    "reset": "Seite neu laden"
   },
   "home": {
     "hero": {
@@ -149,6 +169,10 @@
       "title": "Bereit für den nächsten Schritt?",
       "subtitle": "Schreiben Sie mir — ich antworte persönlich.",
       "button": "Nachricht senden"
+    },
+    "testimonials": {
+      "overline": "REFERENZEN",
+      "title": "Stimmen aus der Zusammenarbeit"
     }
   },
   "footer": {
@@ -157,7 +181,46 @@
     "legal": "Rechtliches",
     "impressum": "Impressum",
     "datenschutz": "Datenschutz",
+    "faq": "FAQ",
     "rights": "© 2026 Trading House. Alle Rechte vorbehalten."
+  },
+  "faq": {
+    "title": "FAQ",
+    "subtitle": "Antworten auf häufige Fragen zum Handel zwischen Deutschland und der Ukraine.",
+    "items": [
+      {
+        "question": "Wie läuft die Zollabwicklung ab?",
+        "answer": "Ich prüfe die Warendaten, bereite die notwendigen Dokumente vor, stimme Zolltarifnummern ab und begleite die Anmeldung bis zur Freigabe."
+      },
+      {
+        "question": "Was bedeutet DCFTA für den Handel?",
+        "answer": "Das DCFTA-Abkommen erleichtert den Handel zwischen der EU und der Ukraine. Je nach Ware können Zollvorteile, Ursprungsnachweise und besondere Dokumentationspflichten relevant sein."
+      },
+      {
+        "question": "Welche Zahlungsbedingungen sind möglich?",
+        "answer": "Übliche Varianten sind Vorkasse, Teilzahlung, Zahlung gegen Dokumente oder individuell vereinbarte Zahlungsziele. Die passende Struktur hängt von Ware, Lieferant und Auftragswert ab."
+      },
+      {
+        "question": "Gibt es Mindestbestellmengen?",
+        "answer": "Das hängt von Produkt und Lieferant ab. Ich kläre Mindestmengen frühzeitig und suche nach praktikablen Optionen für kleinere oder wiederkehrende Bestellungen."
+      },
+      {
+        "question": "Wie lange dauert der Versand?",
+        "answer": "Viele Lieferungen zwischen Deutschland und der Ukraine dauern je nach Ware, Verfügbarkeit, Route und Zollabwicklung etwa einige Tage bis mehrere Wochen."
+      },
+      {
+        "question": "Welche Produkte können beschafft werden?",
+        "answer": "Ich unterstütze vor allem bei Maschinen, Industrieprodukten, Chemie, Agrarbedarf, Baustoffen, Stahl, Metallen, Elektronik und IT-Ausrüstung."
+      },
+      {
+        "question": "Wie erhalte ich ein Angebot?",
+        "answer": "Senden Sie mir Produkt, Menge, Zielort, Zeitrahmen und vorhandene Spezifikationen. Danach prüfe ich Verfügbarkeit, Preis, Logistik und nächste Schritte."
+      },
+      {
+        "question": "Welche Dokumente werden für den Import benötigt?",
+        "answer": "Typisch sind Handelsrechnung, Packliste, Transportdokumente, Zolltarifnummer, Ursprungsnachweis und je nach Ware Zertifikate, Sicherheitsdatenblätter oder Konformitätsnachweise."
+      }
+    ]
   },
   "impressum": {
     "title": "Impressum",
@@ -191,6 +254,8 @@
     "collectionText": "Beim Besuch dieser Website werden automatisch Informationen durch den Server erfasst, wie Browser-Typ, Betriebssystem und Uhrzeit des Zugriffs. Diese Daten werden nur zur Sicherstellung eines reibungslosen Betriebs der Website verwendet.",
     "forms": "Kontaktformular",
     "formsText": "Wenn Sie mir über das Kontaktformular eine Nachricht senden, werden die von Ihnen eingegebenen Daten (Name, E-Mail-Adresse, Telefonnummer, Nachricht) ausschließlich zur Bearbeitung Ihrer Anfrage gespeichert und verwendet. Die Daten werden nicht an Dritte weitergegeben.",
+    "contactForm": "Kontaktformular",
+    "contactFormText": "Über das Kontaktformular werden Name, E-Mail-Adresse, Telefonnummer, Nachricht und Produktinteresse erhoben. Die Verarbeitung erfolgt zur Bearbeitung vorvertraglicher Anfragen auf Grundlage von Art. 6 Abs. 1 lit. b DSGVO. Die Daten werden nach 6 Monaten gelöscht, sofern keine Geschäftsbeziehung entsteht. Für die E-Mail-Zustellung wird Resend Inc. als Auftragsverarbeiter eingesetzt; ein Vertrag zur Auftragsverarbeitung ist abgeschlossen.",
     "cookies": "Cookies",
     "cookiesText": "Diese Website verwendet nur technisch notwendige Cookies (Sprachpräferenz). Es werden keine Tracking-Cookies eingesetzt.",
     "rights": "Ihre Rechte",

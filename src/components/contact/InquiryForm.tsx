@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
+import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -16,7 +17,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { Send, CheckCircle2 } from 'lucide-react';
+import { AlertCircle, Send, CheckCircle2 } from 'lucide-react';
 
 const categoryKeys = [
   'maschinen',
@@ -27,20 +28,34 @@ const categoryKeys = [
   'elektronik',
 ] as const;
 
-const inquirySchema = z.object({
-  name: z.string().min(1, 'Required'),
-  email: z.string().email('Invalid email'),
-  phone: z.string().optional(),
-  interest: z.string().optional(),
-  message: z.string().min(1, 'Required'),
-});
-
-type InquiryFormData = z.infer<typeof inquirySchema>;
+type InquiryFormData = {
+  name: string;
+  email: string;
+  phone?: string;
+  interest?: string;
+  message: string;
+  _trap?: string;
+};
 
 export function InquiryForm() {
   const t = useTranslations('contact.form');
   const tProducts = useTranslations('products');
+  const shouldReduceMotion = useReducedMotion();
   const [submitted, setSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+
+  const inquirySchema = z.object({
+    name: z.string().trim().min(1, t('required')),
+    email: z
+      .string()
+      .trim()
+      .min(1, t('required'))
+      .email(t('invalidEmail')),
+    phone: z.string().optional(),
+    interest: z.string().optional(),
+    message: z.string().trim().min(1, t('required')),
+    _trap: z.string().optional(),
+  });
 
   const {
     register,
@@ -56,22 +71,40 @@ export function InquiryForm() {
       phone: '',
       interest: '',
       message: '',
+      _trap: '',
     },
   });
 
   async function onSubmit(data: InquiryFormData) {
-    // For now, just log and show success
-    console.log('Inquiry submitted:', data);
+    setSubmitError(null);
 
-    // Simulate a brief delay
-    await new Promise((resolve) => setTimeout(resolve, 500));
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
 
-    setSubmitted(true);
-    reset();
+      const result = (await response.json().catch(() => ({}))) as {
+        success?: boolean;
+        error?: string;
+      };
+
+      if (!response.ok || result.error) {
+        throw new Error(result.error || t('error'));
+      }
+
+      setSubmitted(true);
+      reset();
+    } catch {
+      setSubmitError(t('error'));
+    }
   }
 
   if (submitted) {
-    return (
+    const successState = (
       <div className="bg-accent-light border border-accent/20 rounded-xl p-8 text-center">
         <CheckCircle2 className="w-12 h-12 text-accent mx-auto mb-4" />
         <p className="text-ink font-semibold text-lg mb-1">{t('success')}</p>
@@ -85,10 +118,32 @@ export function InquiryForm() {
         </Button>
       </div>
     );
+
+    if (shouldReduceMotion) {
+      return successState;
+    }
+
+    return (
+      <motion.div
+        initial={{ opacity: 0, y: 8 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.2, ease: 'easeOut' }}
+      >
+        {successState}
+      </motion.div>
+    );
   }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+      <input
+        type="text"
+        tabIndex={-1}
+        autoComplete="off"
+        style={{ display: 'none' }}
+        {...register('_trap')}
+      />
+
       {/* Name */}
       <div className="space-y-2">
         <Label htmlFor="name">
@@ -101,7 +156,7 @@ export function InquiryForm() {
           {...register('name')}
         />
         {errors.name && (
-          <p className="text-xs text-warmth">{t('required')}</p>
+          <p className="text-xs text-warmth">{errors.name.message}</p>
         )}
       </div>
 
@@ -118,7 +173,7 @@ export function InquiryForm() {
           {...register('email')}
         />
         {errors.email && (
-          <p className="text-xs text-warmth">{t('required')}</p>
+          <p className="text-xs text-warmth">{errors.email.message}</p>
         )}
       </div>
 
@@ -164,9 +219,30 @@ export function InquiryForm() {
           {...register('message')}
         />
         {errors.message && (
-          <p className="text-xs text-warmth">{t('required')}</p>
+          <p className="text-xs text-warmth">{errors.message.message}</p>
         )}
       </div>
+
+      <AnimatePresence initial={false}>
+        {submitError &&
+          (shouldReduceMotion ? (
+            <p className="flex items-start gap-2 rounded-md border border-warmth/30 bg-warmth/10 px-3 py-2 text-sm text-warmth">
+              <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
+              <span>{submitError}</span>
+            </p>
+          ) : (
+            <motion.p
+              className="flex items-start gap-2 rounded-md border border-warmth/30 bg-warmth/10 px-3 py-2 text-sm text-warmth"
+              initial={{ opacity: 0, y: -4 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -4 }}
+              transition={{ duration: 0.16, ease: 'easeOut' }}
+            >
+              <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
+              <span>{submitError}</span>
+            </motion.p>
+          ))}
+      </AnimatePresence>
 
       {/* Submit */}
       <Button

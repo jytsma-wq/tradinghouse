@@ -50,5 +50,6 @@ test
 prompt
 
 server.log
+prisma/db/*.db
 # Skills directory
 /skills/
