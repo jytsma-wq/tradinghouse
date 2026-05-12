@@ -1,0 +1,76 @@
+## Error Type
+Console Error
+
+## Error Message
+A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+https://react.dev/link/hydration-mismatch
+
+  ...
+    <InnerScrollAndFocusHandlerOld focusAndScrollRef={{scrollRef:null, ...}} cacheNode={{rsc:{...}, ...}}>
+      <ErrorBoundary errorComponent={undefined} errorStyles={undefined} errorScripts={undefined}>
+        <LoadingBoundary name="/" loading={null}>
+          <HTTPAccessFallbackBoundary notFound={{...}} forbidden={undefined} unauthorized={undefined}>
+            <HTTPAccessFallbackErrorBoundary pathname="/de" notFound={{...}} forbidden={undefined} ...>
+              <RedirectBoundary>
+                <RedirectErrorBoundary router={{...}}>
+                  <InnerLayoutRouter url="/de" tree={[...]} params={{locale:"de"}} cacheNode={{rsc:{...}, ...}} ...>
+                    <LoadingBoundaryProvider loading={[...]}>
+                      <SegmentViewNode type="layout" pagePath="[locale]/l...">
+                        <SegmentTrieNode>
+                        <link>
+                        <script>
+                        <script>
+                        <script>
+                        <script>
+                        <script>
+                        <script>
+                        <script>
+                        <LocaleLayout>
+                          <html lang="de" suppressHydrationWarning={true}>
+                            <head>
+                            <body
+                              className="dm_sans_f663bdb1-module__PCOlzq__variable dm_mono_4cbaa3a1-module__vJ39pq__va..."
+-                             cz-shortcut-listen="true"
+                            >
+                  ...
+      ...
+
+
+
+    at createConsoleError (file://E:/Alek websites/Website-tradinghouse/.next/dev/static/chunks/node_modules_next_dist_115brz8._.js:2379:71)
+    at handleConsoleError (file://E:/Alek websites/Website-tradinghouse/.next/dev/static/chunks/node_modules_next_dist_115brz8._.js:3165:54)
+    at error (file://E:/Alek websites/Website-tradinghouse/.next/dev/static/chunks/node_modules_next_dist_115brz8._.js:3312:57)
+    at emitPendingHydrationWarnings/< (file://E:/Alek websites/Website-tradinghouse/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:3439:25)
+    at runWithFiberInDEV (file://E:/Alek websites/Website-tradinghouse/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:965:131)
+    at emitPendingHydrationWarnings (file://E:/Alek websites/Website-tradinghouse/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:3438:30)
+    at completeWork (file://E:/Alek websites/Website-tradinghouse/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:6885:102)
+    at runWithFiberInDEV (file://E:/Alek websites/Website-tradinghouse/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:965:131)
+    at completeUnitOfWork (file://E:/Alek websites/Website-tradinghouse/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9622:23)
+    at performUnitOfWork (file://E:/Alek websites/Website-tradinghouse/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9557:28)
+    at workLoopConcurrentByScheduler (file://E:/Alek websites/Website-tradinghouse/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9551:75)
+    at renderRootConcurrent (file://E:/Alek websites/Website-tradinghouse/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9534:71)
+    at performWorkOnRoot (file://E:/Alek websites/Website-tradinghouse/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9061:150)
+    at performWorkOnRootViaSchedulerTask (file://E:/Alek websites/Website-tradinghouse/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:10255:26)
+    at performWorkUntilDeadline (file://E:/Alek websites/Website-tradinghouse/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:2647:72)
+    at body (unknown:0:0)
+    at LocaleLayout (src\app\[locale]\layout.tsx:119:7)
+
+## Code Frame
+  117 |         />
+  118 |       </head>
+> 119 |       <body className={`${dmSans.variable} ${dmMono.variab...
+      |       ^
+  120 |         <NextIntlClientProvider locale={locale} messages={...
+  121 |           <a
+  122 |             href="#main-content"
+
+Next.js version: 16.2.6 (Turbopack)

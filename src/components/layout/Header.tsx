@@ -4,7 +4,6 @@ import { useState, type KeyboardEvent } from 'react';
 import { useTranslations } from 'next-intl';
 import { usePathname, useRouter, Link } from '@/i18n/navigation';
 import { motion, AnimatePresence, type Variants } from 'framer-motion';
-import Image from 'next/image';
 import {
   Menu,
   X,
@@ -232,14 +231,6 @@ export default function Header() {
 
           {/* Center: Logo */}
           <Link href="/" className="flex items-center gap-2.5 shrink-0">
-            <Image
-              src="/logo.svg"
-              alt="Trading House Logo"
-              width={32}
-              height={32}
-              sizes="32px"
-              className="w-8 h-8"
-            />
             <span className="text-xl font-bold tracking-wider text-ink">
               TRADING HOUSE
             </span>
@@ -380,14 +371,6 @@ export default function Header() {
                 onClick={() => setMobileOpen(false)}
                 className="flex items-center gap-2"
               >
-                <Image
-                  src="/logo.svg"
-                  alt="Trading House Logo"
-                  width={28}
-                  height={28}
-                  sizes="28px"
-                  className="w-7 h-7"
-                />
                 <span className="text-xl font-bold tracking-wider text-ink">
                   TRADING HOUSE
                 </span>

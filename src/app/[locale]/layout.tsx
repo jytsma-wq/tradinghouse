@@ -116,7 +116,7 @@ export default async function LocaleLayout({ children, params }: Props) {
           }}
         />
       </head>
-      <body className={`${dmSans.variable} ${dmMono.variable} min-h-screen flex flex-col bg-canvas text-ink font-sans antialiased`}>
+      <body className={`${dmSans.variable} ${dmMono.variable} min-h-screen flex flex-col bg-canvas text-ink font-sans antialiased`} suppressHydrationWarning>
         <NextIntlClientProvider locale={locale} messages={messages}>
           <a
             href="#main-content"
