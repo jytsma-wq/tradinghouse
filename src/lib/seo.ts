@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { siteConfig } from "@/config/site";
 
 export function absoluteUrl(path = "") {
@@ -17,6 +18,35 @@ export function localizedAlternates(path: string) {
 
 export function localizedPath(locale: string, path = "") {
   return `/${locale}${path}`;
+}
+
+export function localizedPageMetadata({
+  locale,
+  path,
+  title,
+  description,
+}: {
+  locale: string;
+  path: string;
+  title: string;
+  description: string;
+}): Metadata {
+  const url = localizedPath(locale, path);
+  const absoluteTitle = `${title} | ${siteConfig.name}`;
+
+  return {
+    title,
+    description,
+    alternates: localizedAlternates(url),
+    openGraph: {
+      title: absoluteTitle,
+      description,
+      url,
+      siteName: siteConfig.name,
+      locale: locale === "de" ? "de_DE" : "uk_UA",
+      type: "website",
+    },
+  };
 }
 
 export function breadcrumbJsonLd(

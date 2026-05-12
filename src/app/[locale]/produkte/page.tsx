@@ -1,6 +1,8 @@
 import { setRequestLocale } from 'next-intl/server';
 import { getTranslations } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
+import { localizedPageMetadata } from '@/lib/seo';
+import type { Metadata } from 'next';
 import {
   Cog,
   FlaskConical,
@@ -23,6 +25,18 @@ const categoryConfig = [
 type Props = {
   params: Promise<{ locale: string }>;
 };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'products' });
+
+  return localizedPageMetadata({
+    locale,
+    path: '/produkte',
+    title: t('title'),
+    description: t('subtitle'),
+  });
+}
 
 export default async function ProduktePage({ params }: Props) {
   const { locale } = await params;

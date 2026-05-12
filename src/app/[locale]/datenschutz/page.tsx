@@ -1,9 +1,23 @@
 import { setRequestLocale } from 'next-intl/server';
 import { getTranslations } from 'next-intl/server';
+import { localizedPageMetadata } from '@/lib/seo';
+import type { Metadata } from 'next';
 
 type Props = {
   params: Promise<{ locale: string }>;
 };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'datenschutz' });
+
+  return localizedPageMetadata({
+    locale,
+    path: '/datenschutz',
+    title: t('title'),
+    description: t('subtitle'),
+  });
+}
 
 export default async function DatenschutzPage({ params }: Props) {
   const { locale } = await params;
@@ -15,6 +29,7 @@ export default async function DatenschutzPage({ params }: Props) {
     { headingKey: 'controller', textKey: 'controllerText' },
     { headingKey: 'collection', textKey: 'collectionText' },
     { headingKey: 'contactForm', textKey: 'contactFormText' },
+    { headingKey: 'emailProcessor', textKey: 'emailProcessorText' },
     { headingKey: 'cookies', textKey: 'cookiesText' },
     { headingKey: 'rights', textKey: 'rightsText' },
   ] as const;

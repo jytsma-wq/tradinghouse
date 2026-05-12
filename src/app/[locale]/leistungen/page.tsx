@@ -1,6 +1,8 @@
 import { setRequestLocale } from 'next-intl/server';
 import { getTranslations } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
+import { localizedPageMetadata } from '@/lib/seo';
+import type { Metadata } from 'next';
 import { Check, ArrowRight, Import, ArrowUpFromLine, Truck } from 'lucide-react';
 import Image from 'next/image';
 
@@ -13,6 +15,18 @@ const serviceConfig = [
 type Props = {
   params: Promise<{ locale: string }>;
 };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'services' });
+
+  return localizedPageMetadata({
+    locale,
+    path: '/leistungen',
+    title: t('title'),
+    description: t('subtitle'),
+  });
+}
 
 export default async function LeistungenPage({ params }: Props) {
   const { locale } = await params;

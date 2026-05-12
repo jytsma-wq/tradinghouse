@@ -112,7 +112,13 @@
       "invalidEmail": "Bitte geben Sie eine gültige E-Mail-Adresse ein."
     },
     "direct": "Direkter Kontakt",
-    "response": "Ich antworte innerhalb von 24 Stunden."
+    "response": "Ich antworte innerhalb von 24 Stunden.",
+    "info": {
+      "emailLabel": "E-Mail",
+      "phoneLabel": "Telefon",
+      "addressLabel": "Adresse",
+      "mapTitle": "Karte zum Standort"
+    }
   },
   "cookieBanner": {
     "message": "Diese Website verwendet technisch notwendige Cookies, um Spracheinstellungen und Ihre Cookie-Auswahl zu speichern.",
@@ -255,7 +261,9 @@
     "forms": "Kontaktformular",
     "formsText": "Wenn Sie mir über das Kontaktformular eine Nachricht senden, werden die von Ihnen eingegebenen Daten (Name, E-Mail-Adresse, Telefonnummer, Nachricht) ausschließlich zur Bearbeitung Ihrer Anfrage gespeichert und verwendet. Die Daten werden nicht an Dritte weitergegeben.",
     "contactForm": "Kontaktformular",
-    "contactFormText": "Über das Kontaktformular werden Name, E-Mail-Adresse, Telefonnummer, Nachricht und Produktinteresse erhoben. Die Verarbeitung erfolgt zur Bearbeitung vorvertraglicher Anfragen auf Grundlage von Art. 6 Abs. 1 lit. b DSGVO. Die Daten werden nach 6 Monaten gelöscht, sofern keine Geschäftsbeziehung entsteht. Für die E-Mail-Zustellung wird Resend Inc. als Auftragsverarbeiter eingesetzt; ein Vertrag zur Auftragsverarbeitung ist abgeschlossen.",
+    "contactFormText": "Über das Kontaktformular werden Name, E-Mail-Adresse, Telefonnummer, Nachricht und Produktinteresse erhoben. Die Verarbeitung erfolgt zur Bearbeitung vorvertraglicher Anfragen auf Grundlage von Art. 6 Abs. 1 lit. b DSGVO. Die Daten werden nach 6 Monaten gelöscht, sofern keine Geschäftsbeziehung entsteht.",
+    "emailProcessor": "E-Mail-Dienstleister",
+    "emailProcessorText": "Für die Zustellung von Kontaktformular-E-Mails wird Resend Inc., 2261 Market Street #5039, San Francisco, CA 94114, USA, als Auftragsverarbeiter eingesetzt. Zweck ist die technische E-Mail-Zustellung. Soweit personenbezogene Daten in die USA übermittelt werden, erfolgt dies auf Grundlage der EU-Standardvertragsklauseln gemäß Art. 46 DSGVO.",
     "cookies": "Cookies",
     "cookiesText": "Diese Website verwendet nur technisch notwendige Cookies (Sprachpräferenz). Es werden keine Tracking-Cookies eingesetzt.",
     "rights": "Ihre Rechte",

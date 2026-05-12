@@ -1,12 +1,26 @@
 import { setRequestLocale } from 'next-intl/server';
 import { getTranslations } from 'next-intl/server';
 import { siteConfig } from '@/config/site';
+import { localizedPageMetadata } from '@/lib/seo';
+import type { Metadata } from 'next';
 import { Mail, Phone, Clock, MapPin } from 'lucide-react';
 import { InquiryForm } from '@/components/contact/InquiryForm';
 
 type Props = {
   params: Promise<{ locale: string }>;
 };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'contact' });
+
+  return localizedPageMetadata({
+    locale,
+    path: '/kontakt',
+    title: t('title'),
+    description: t('subtitle'),
+  });
+}
 
 export default async function KontaktPage({ params }: Props) {
   const { locale } = await params;
@@ -42,7 +56,7 @@ export default async function KontaktPage({ params }: Props) {
                 <Mail className="w-5 h-5" />
               </div>
               <div>
-                <p className="text-sm text-steel">{locale === 'de' ? 'E-Mail' : 'Електронна пошта'}</p>
+                <p className="text-sm text-steel">{t('info.emailLabel')}</p>
                 <a
                   href={`mailto:${siteConfig.email}`}
                   className="text-ink font-medium hover:text-accent transition-colors"
@@ -58,7 +72,7 @@ export default async function KontaktPage({ params }: Props) {
                 <Phone className="w-5 h-5" />
               </div>
               <div>
-                <p className="text-sm text-steel">{locale === 'de' ? 'Telefon' : 'Телефон'}</p>
+                <p className="text-sm text-steel">{t('info.phoneLabel')}</p>
                 <a
                   href={`tel:${siteConfig.phone.replace(/\s/g, '')}`}
                   className="text-ink font-medium hover:text-accent transition-colors"
@@ -85,7 +99,7 @@ export default async function KontaktPage({ params }: Props) {
               </div>
               <div>
                 <p className="text-sm text-steel">
-                  {locale === 'de' ? 'Adresse' : 'Адреса'}
+                  {t('info.addressLabel')}
                 </p>
                 <p className="text-ink font-medium">{address}</p>
               </div>
@@ -94,7 +108,7 @@ export default async function KontaktPage({ params }: Props) {
             <div className="overflow-hidden rounded-xl border border-mist bg-surface">
               <iframe
                 src={mapSrc}
-                title={locale === 'de' ? 'Karte zum Standort' : 'Карта розташування'}
+                title={t('info.mapTitle')}
                 loading="lazy"
                 className="h-64 w-full border-0"
                 referrerPolicy="no-referrer-when-downgrade"

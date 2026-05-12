@@ -1,10 +1,24 @@
 import { setRequestLocale } from 'next-intl/server';
 import { getTranslations } from 'next-intl/server';
 import { siteConfig } from '@/config/site';
+import { localizedPageMetadata } from '@/lib/seo';
+import type { Metadata } from 'next';
 
 type Props = {
   params: Promise<{ locale: string }>;
 };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'impressum' });
+
+  return localizedPageMetadata({
+    locale,
+    path: '/impressum',
+    title: t('title'),
+    description: t('subtitle'),
+  });
+}
 
 export default async function ImpressumPage({ params }: Props) {
   const { locale } = await params;

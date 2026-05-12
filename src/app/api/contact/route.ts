@@ -162,8 +162,9 @@ export async function POST(request: NextRequest) {
     });
 
     const apiKey = process.env.RESEND_API_KEY;
+    const fromEmail = process.env.RESEND_FROM_EMAIL;
 
-    if (!apiKey) {
+    if (!apiKey || !fromEmail) {
       return NextResponse.json(
         { error: "Email service is not configured." },
         { status: 500 },
@@ -172,9 +173,7 @@ export async function POST(request: NextRequest) {
 
     const resend = new Resend(apiKey);
     const { error } = await resend.emails.send({
-      from:
-        process.env.RESEND_FROM_EMAIL ||
-        "Trading House <onboarding@resend.dev>",
+      from: fromEmail,
       to: siteConfig.email,
       replyTo: submission.email,
       subject: `Neue Anfrage von ${submission.name}`,
